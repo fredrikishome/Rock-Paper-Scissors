@@ -1,0 +1,49 @@
+name: Smoke tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  cli-smoke:
+    name: CLI smoke test (${{ matrix.os }}, Python ${{ matrix.python-version }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python-version: ["3.10", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Classic CLI — 5 rounds
+        run: python rps_cli_classic.py --rounds 5 --delay 0 --seed 42
+
+      - name: Dashboard CLI — 5 rounds (final dashboard only)
+        run: python rps_cli.py --rounds 5 --delay 0 --seed 42 --final-only
+        env:
+          TERM: xterm-256color
+
+  web-dashboard:
+    name: Web dashboard sanity check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify embedded round data is valid JSON-in-JS
+        run: |
+          python - <<'EOF'
+          import json, re
+          html = open("index.html", encoding="utf-8").read()
+          m = re.search(r"const rounds = (\[.*?\]);", html, re.DOTALL)
+          assert m, "rounds array not found in index.html"
+          rounds = json.loads(m.group(1))
+          assert len(rounds) == 100, f"expected 100 rounds, got {len(rounds)}"
+          assert all(r["winner"] in ("Donald", "Oskar", "Oavgjort") for r in rounds)
+          print(f"OK: {len(rounds)} rounds embedded, all winners valid")
+          EOF

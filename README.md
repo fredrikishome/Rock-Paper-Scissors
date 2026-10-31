@@ -1,5 +1,9 @@
 # ✊ ✌️ ✋ Sten, Sax, Påse — Agent + Agent
 
+![Smoke tests](https://github.com/<ANVÄNDARNAMN>/sten-sax-pase/actions/workflows/smoke.yml/badge.svg)
+
+🇬🇧 English README: [README.en.md](README.en.md)
+
 Två autonoma agenter — **Donald 🧨** och **Oskar 🌊** — som spelar sten, sax, påse
 mot varandra, med live-visualisering i både terminal (CLI) och webbläsare.
 
@@ -17,6 +21,9 @@ agentstrategier, statistik och realtidsvisualisering.
 | `index.html` | **Webb-dashboard** — självständig sida (öppna i webbläsare) med animerad duell-linje |
 | `data/match_100.json` | Referensdata från en simulerad match på 100 omgångar |
 | `docs/PROMPT_HISTORY.md` | Samlad prompt-summering: hur projektet byggdes steg för steg |
+| `docs/references/` | Designreferens (dashboard-inspiration) + textsnapshot av CLI-dashboarden |
+| `README.en.md` | Engelsk version av README |
+| `.github/workflows/smoke.yml` | CI: röktester av båda CLI:erna (Linux + Windows) och validering av webbdatan |
 
 ## Agenterna
 
@@ -58,6 +65,11 @@ python rps_cli_classic.py --seed 42
 ### Webb-dashboard
 Öppna `index.html` i valfri modern webbläsare. Ingen server eller beroenden krävs.
 
+Designen är inspirerad av en futuristisk "AI-dashboard"-estetik — se
+[docs/references/dashboard-inspiration.jpg](docs/references/dashboard-inspiration.jpg)
+och en textsnapshot av CLI-dashboarden i
+[docs/references/cli_dashboard_snapshot.txt](docs/references/cli_dashboard_snapshot.txt).
+
 Funktioner:
 - **Duell-linje** mellan agenterna: en glödande pil skickas per omgång från
   förloraren till vinnaren — riktningen byter håll beroende på vem som vann
@@ -85,6 +97,14 @@ slump och motståndarens valfördelning — ju fler omgångar, desto närmare 33
 
 - Python 3.10+ (CLI-gränssnitten). Inga externa paket.
 - Webbsidan kräver endast en modern webbläsare.
+
+## CI
+
+Vid varje push/pull request körs [smoke.yml](.github/workflows/smoke.yml):
+- Båda CLI:erna spelas 5 omgångar (seed 42) på **Ubuntu och Windows** med Python 3.10/3.12/3.13
+- `index.html` valideras: 100 inbäddade omgångar med giltiga vinnarvärden
+
+> Byt ut `<ANVÄNDARNAMN>` i badge-URL:en ovan mot ditt GitHub-användarnamn efter publicering.
 
 ## Licens
 
