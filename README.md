@@ -1,6 +1,6 @@
 # ✊ ✌️ ✋ Sten, Sax, Påse — Agent + Agent
 
-![Smoke tests](https://github.com/<ANVÄNDARNAMN>/sten-sax-pase/actions/workflows/smoke.yml/badge.svg)
+![Smoke tests](https://github.com/fredrikishome/Rock-Paper-Scissors/actions/workflows/smoke.yml/badge.svg)
 
 🇬🇧 English README: [README.en.md](README.en.md)
 
@@ -102,8 +102,6 @@ slump och motståndarens valfördelning — ju fler omgångar, desto närmare 33
 Vid varje push/pull request körs [smoke.yml](.github/workflows/smoke.yml):
 - Båda CLI:erna spelas 5 omgångar (seed 42) på **Ubuntu och Windows** med Python 3.10/3.12/3.13
 - `index.html` valideras: 100 inbäddade omgångar med giltiga vinnarvärden
-
-> Byt ut `<ANVÄNDARNAMN>` i badge-URL:en ovan mot ditt GitHub-användarnamn efter publicering.
 
 ## Licens
 
