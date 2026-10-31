@@ -6,7 +6,6 @@ scissors against each other, with live visualization in both the terminal
 English overview.
 
 > 🇸🇪 Swedish README: [README.md](README.md)
-> Full development history / prompt summary: [docs/PROMPT_HISTORY.md](docs/PROMPT_HISTORY.md)
 
 ## Contents
 
@@ -16,7 +15,6 @@ English overview.
 | `rps_cli_classic.py` | **Classic CLI** — simple list style, one line per round |
 | `index.html` | **Web dashboard** — standalone page (open in any browser) with an animated duel line |
 | `data/match_100.json` | Reference data from a simulated 100-round match |
-| `docs/PROMPT_HISTORY.md` | Collected prompt summary: how the project was built step by step |
 | `.github/workflows/smoke.yml` | CI smoke tests (CLI on Linux + Windows, web data validation) |
 
 ## The agents

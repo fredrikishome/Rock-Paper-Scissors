@@ -20,7 +20,6 @@ agentstrategier, statistik och realtidsvisualisering.
 | `rps_cli_classic.py` | **Klassisk CLI** — enkel liststil, en rad per omgång |
 | `index.html` | **Webb-dashboard** — självständig sida (öppna i webbläsare) med animerad duell-linje |
 | `data/match_100.json` | Referensdata från en simulerad match på 100 omgångar |
-| `docs/PROMPT_HISTORY.md` | Samlad prompt-summering: hur projektet byggdes steg för steg |
 | `docs/references/` | Textsnapshot av CLI-dashboarden |
 | `README.en.md` | Engelsk version av README |
 | `.github/workflows/smoke.yml` | CI: röktester av båda CLI:erna (Linux + Windows) och validering av webbdatan |
