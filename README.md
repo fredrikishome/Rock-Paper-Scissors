@@ -21,7 +21,7 @@ agentstrategier, statistik och realtidsvisualisering.
 | `index.html` | **Webb-dashboard** — självständig sida (öppna i webbläsare) med animerad duell-linje |
 | `data/match_100.json` | Referensdata från en simulerad match på 100 omgångar |
 | `docs/PROMPT_HISTORY.md` | Samlad prompt-summering: hur projektet byggdes steg för steg |
-| `docs/references/` | Designreferens (dashboard-inspiration) + textsnapshot av CLI-dashboarden |
+| `docs/references/` | Textsnapshot av CLI-dashboarden |
 | `README.en.md` | Engelsk version av README |
 | `.github/workflows/smoke.yml` | CI: röktester av båda CLI:erna (Linux + Windows) och validering av webbdatan |
 
@@ -66,8 +66,7 @@ python rps_cli_classic.py --seed 42
 Öppna `index.html` i valfri modern webbläsare. Ingen server eller beroenden krävs.
 
 Designen är inspirerad av en futuristisk "AI-dashboard"-estetik — se
-[docs/references/dashboard-inspiration.jpg](docs/references/dashboard-inspiration.jpg)
-och en textsnapshot av CLI-dashboarden i
+textsnapshoten av CLI-dashboarden i
 [docs/references/cli_dashboard_snapshot.txt](docs/references/cli_dashboard_snapshot.txt).
 
 Funktioner:
