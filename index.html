@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sten + Sax + Påse. Agent + Agent. — Donald vs Oskar</title>
+<style>
+  :root {
+    --bg1: #050b1f; --bg2: #0a1440; --bg3: #071030;
+    --panel: rgba(10, 22, 58, 0.75);
+    --cyan: #4dd8ff; --orange: #ff9f43; --gold: #ffd32a;
+    --grey: #8fa3c8; --text: #e8f0ff;
+    --glow-cyan: 0 0 24px rgba(77, 216, 255, 0.25);
+    --glow-orange: 0 0 24px rgba(255, 159, 67, 0.25);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background:
+      radial-gradient(1200px 600px at 50% -10%, rgba(38, 99, 218, 0.25), transparent 60%),
+      radial-gradient(900px 500px at 85% 110%, rgba(77, 216, 255, 0.12), transparent 60%),
+      radial-gradient(900px 500px at 10% 110%, rgba(255, 159, 67, 0.08), transparent 60%),
+      linear-gradient(160deg, var(--bg1), var(--bg2) 55%, var(--bg3));
+    color: var(--text); min-height: 100vh; padding: 22px 18px 40px;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; }
+
+  .topline { display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.75rem; letter-spacing: 1.5px; color: var(--grey);
+    text-transform: uppercase; margin-bottom: 14px; }
+  .topline .dot { color: var(--cyan); }
+  h1 {
+    text-align: center; font-size: clamp(1.5rem, 4vw, 2.4rem); font-weight: 800;
+    background: linear-gradient(90deg, #9ad8ff, #4dd8ff 40%, #ffb46b 90%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    text-shadow: 0 0 40px rgba(77, 216, 255, 0.35);
+  }
+  .subtitle { text-align: center; color: var(--grey); font-size: 0.8rem;
+    letter-spacing: 4px; margin: 8px 0 26px; text-transform: uppercase; }
+
+  .grid { display: grid; grid-template-columns: 280px 1fr 280px; gap: 18px; }
+  @media (max-width: 1000px) { .grid { grid-template-columns: 1fr; } }
+  .panel {
+    background: var(--panel); border-radius: 16px; padding: 18px;
+    border: 1px solid rgba(77, 216, 255, 0.22);
+    box-shadow: var(--glow-cyan), inset 0 0 30px rgba(20, 60, 140, 0.25);
+    backdrop-filter: blur(8px);
+  }
+  .panel.donald { border-color: rgba(255, 159, 67, 0.35); box-shadow: var(--glow-orange), inset 0 0 30px rgba(120, 60, 10, 0.15); }
+  .panel-title { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--grey); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .panel-title::before { content: ""; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
+  .panel.donald .panel-title::before { background: var(--orange); box-shadow: 0 0 8px var(--orange); }
+
+  .code {
+    font-family: Consolas, 'Cascadia Code', monospace; font-size: 0.8rem;
+    color: #9ad8ff; background: rgba(4, 10, 30, 0.6); border-radius: 10px;
+    padding: 10px 12px; margin-bottom: 12px; line-height: 1.55;
+    border: 1px solid rgba(77, 216, 255, 0.15);
+  }
+  .code .kw { color: #c792ea; } .code .fn { color: #82aaff; }
+  .log { max-height: 220px; overflow-y: auto; font-size: 0.82rem; }
+  .log::-webkit-scrollbar { width: 6px; }
+  .log::-webkit-scrollbar-thumb { background: rgba(77,216,255,.3); border-radius: 3px; }
+  .logrow { display: flex; justify-content: space-between; gap: 8px;
+    padding: 4px 6px; border-radius: 6px; }
+  .logrow:nth-child(odd) { background: rgba(255,255,255,0.03); }
+  .logrow .rn { color: var(--grey); font-family: Consolas, monospace; }
+  .res-w { color: #7bed9f; font-weight: 700; }
+  .res-l { color: #ff6b81; font-weight: 700; }
+  .res-d { color: var(--grey); }
+
+  .roundno { text-align: center; color: var(--grey); font-size: 0.8rem;
+    letter-spacing: 2px; margin-bottom: 10px; }
+  .battle { display: flex; align-items: center; justify-content: center; gap: 18px; }
+  .battle .hand { text-align: center; flex: 1; }
+  .battle .hand .e { font-size: 2.6rem; display: block; }
+  .battle .hand.d .e { filter: drop-shadow(0 0 14px rgba(255, 159, 67, 0.5)); }
+  .battle .hand.o .e { filter: drop-shadow(0 0 14px rgba(77, 216, 255, 0.5)); }
+  .battle .hand .nm { font-size: 0.85rem; font-weight: 700; margin-top: 4px; }
+  .battle .hand.d .nm { color: var(--orange); }
+  .battle .hand.o .nm { color: var(--cyan); }
+  .battle .vs { font-size: 1.1rem; font-weight: 800; color: var(--grey); }
+  .verdict { text-align: center; font-weight: 800; margin: 10px 0 2px; min-height: 1.3em; }
+  .verdict.d { color: var(--orange); } .verdict.o { color: var(--cyan); }
+  .verdict.dr { color: var(--grey); }
+  .scoreline { display: flex; justify-content: center; align-items: baseline;
+    gap: 14px; margin: 4px 0 16px; }
+  .scoreline .s { font-size: 2.6rem; font-weight: 800; line-height: 1; }
+  .scoreline .s.d { color: var(--orange); }
+  .scoreline .s.o { color: var(--cyan); }
+  .scoreline .sep { color: var(--grey); font-size: 1.2rem; }
+
+  .flowtitle { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--grey); margin: 6px 0 10px; }
+  .bars { display: flex; flex-direction: column; gap: 10px; }
+  .bar-row { display: grid; grid-template-columns: 84px 1fr 92px; gap: 10px;
+    align-items: center; font-size: 0.85rem; }
+  .bar-track { height: 16px; border-radius: 999px; background: rgba(255,255,255,0.06);
+    overflow: hidden; }
+  .bar-fill { height: 100%; width: 0; border-radius: 999px;
+    transition: width .5s cubic-bezier(.2,.8,.2,1); }
+  .b-sten { background: linear-gradient(90deg, #ffd32a, #ffdd59); box-shadow: 0 0 12px rgba(255,211,42,.5); }
+  .b-sax  { background: linear-gradient(90deg, #4dd8ff, #7efff5); box-shadow: 0 0 12px rgba(77,216,255,.5); }
+  .b-pase { background: linear-gradient(90deg, #ff9f43, #feca57); box-shadow: 0 0 12px rgba(255,159,67,.5); }
+  .bar-meta { color: var(--grey); text-align: right; white-space: nowrap; }
+
+  .ai-msg { font-size: 0.88rem; color: #bfe9ff; line-height: 1.5; margin-bottom: 12px; }
+  .ai-box { background: rgba(4, 10, 30, 0.6); border: 1px solid rgba(77, 216, 255, 0.2);
+    border-radius: 10px; padding: 10px 12px; font-size: 0.82rem; margin-bottom: 10px; }
+  .ai-box .lbl { font-size: 0.65rem; letter-spacing: 2px; color: var(--grey);
+    text-transform: uppercase; display: block; margin-bottom: 4px; }
+  .pattern { color: var(--gold); font-weight: 700; }
+  .conf-track { height: 10px; border-radius: 999px; background: rgba(255,255,255,0.07);
+    overflow: hidden; margin-top: 6px; }
+  .conf-fill { height: 100%; border-radius: 999px; width: 0;
+    background: linear-gradient(90deg, #4dd8ff, #7efff5);
+    box-shadow: 0 0 10px rgba(77,216,255,.6); transition: width .5s; }
+  .auto-on { color: #7bed9f; font-size: 0.78rem; letter-spacing: 1px; }
+
+  /* ---------- Duell-linjen ---------- */
+  .duel { margin-top: 18px; }
+  .duel .controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+  .btn {
+    background: linear-gradient(90deg, rgba(77,216,255,.15), rgba(77,216,255,.05));
+    border: 1px solid rgba(77,216,255,.4); color: var(--cyan); font-weight: 700;
+    font-size: 0.85rem; padding: 7px 16px; border-radius: 999px; cursor: pointer;
+    letter-spacing: 1px; transition: box-shadow .2s, transform .1s;
+  }
+  .btn:hover { box-shadow: 0 0 16px rgba(77,216,255,.5); }
+  .btn:active { transform: scale(.96); }
+  .btn.warn { border-color: rgba(255,159,67,.4); color: var(--orange);
+    background: linear-gradient(90deg, rgba(255,159,67,.15), rgba(255,159,67,.05)); }
+  select {
+    background: rgba(4,10,30,.8); color: var(--text); border: 1px solid rgba(77,216,255,.3);
+    border-radius: 999px; padding: 7px 10px; font-size: 0.8rem; outline: none;
+  }
+  .progress { color: var(--grey); font-size: 0.8rem; letter-spacing: 1px; margin-left: auto; }
+  .duelcanvasbox { position: relative; border-radius: 12px; overflow: hidden;
+    background: rgba(4, 10, 30, 0.55); border: 1px solid rgba(77, 216, 255, 0.18); }
+  canvas { display: block; width: 100%; height: 170px; }
+  .duelcaption { display: flex; justify-content: space-between; margin-top: 8px;
+    font-size: 0.78rem; }
+  .duelcaption .dl { color: var(--orange); font-weight: 700; }
+  .duelcaption .dr { color: var(--cyan); font-weight: 700; }
+  .duelcaption .dc { color: var(--grey); }
+
+  .trendpanel { margin-top: 18px; }
+  .trendline { display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap; }
+  .trend { display: flex; gap: 3px; align-items: flex-end; min-width: 0; flex: 0 1 auto; }
+  .trend span { width: 10px; height: 16px; border-radius: 2px 2px 0 0; visibility: hidden; }
+  .trend span.shown { visibility: visible; }
+  .trend .tw { background: linear-gradient(180deg, #ffb46b, #ff9f43); box-shadow: 0 0 6px rgba(255,159,67,.6); }
+  .trend .tl { background: linear-gradient(180deg, #7ee6ff, #4dd8ff); box-shadow: 0 0 6px rgba(77,216,255,.6); }
+  .trend .td { background: rgba(143, 163, 200, 0.25); height: 9px; align-self: flex-end; }
+
+  .trend-legend { display: flex; gap: 14px; font-size: 0.72rem; color: var(--grey); letter-spacing: 1px; padding-bottom: 2px; }
+  .trend-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
+  .lg-w { background: linear-gradient(180deg, #ffb46b, #ff9f43); }
+  .lg-l { background: linear-gradient(180deg, #7ee6ff, #4dd8ff); }
+  .lg-d { background: rgba(143, 163, 200, 0.25); }
+
+  .statgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  @media (max-width: 700px) { .statgrid { grid-template-columns: repeat(2, 1fr); } }
+  .stat {
+    background: var(--panel); border: 1px solid rgba(77, 216, 255, 0.2);
+    border-radius: 14px; text-align: center; padding: 14px 8px; box-shadow: var(--glow-cyan);
+  }
+  .stat .lbl { font-size: 0.65rem; letter-spacing: 2px; color: var(--grey);
+    text-transform: uppercase; margin-bottom: 6px; }
+  .stat .num { font-size: 1.9rem; font-weight: 800; }
+  .stat .num.gold { color: var(--gold); } .stat .num.orange { color: var(--orange); }
+  .stat .num.cyan { color: var(--cyan); } .stat .num.grey { color: var(--grey); }
+
+  .highlight {
+    margin-top: 18px; padding: 16px 20px; border-radius: 14px;
+    background: linear-gradient(90deg, rgba(255, 211, 42, 0.10), rgba(77, 216, 255, 0.08));
+    border: 1px solid rgba(255, 211, 42, 0.35); font-size: 0.95rem;
+    box-shadow: 0 0 24px rgba(255, 211, 42, 0.08);
+  }
+  .highlight strong { color: var(--gold); }
+
+  details.tablecard { margin-top: 18px; }
+  details.tablecard summary {
+    cursor: pointer; font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--grey); padding: 12px 18px; background: var(--panel);
+    border: 1px solid rgba(77, 216, 255, 0.2); border-radius: 12px; list-style: none;
+  }
+  details.tablecard summary::before { content: "▸ "; color: var(--cyan); }
+  details.tablecard[open] summary::before { content: "▾ "; }
+  .tablewrap { max-height: 380px; overflow-y: auto; margin-top: 10px;
+    background: var(--panel); border: 1px solid rgba(77,216,255,.2);
+    border-radius: 12px; padding: 6px 0; }
+  table { width: 100%; border-collapse: collapse; }
+  th { position: sticky; top: 0; background: #0c1c4a; padding: 9px; text-align: center;
+    color: var(--grey); font-size: 0.7rem; letter-spacing: 1.5px; text-transform: uppercase; }
+  td { padding: 6px; text-align: center; font-size: 0.85rem; }
+  tbody tr { border-top: 1px solid rgba(255,255,255,0.05); }
+  tbody tr.hiddenrow { display: none; }
+  .wd { color: var(--orange); font-weight: 700; }
+  .wo { color: var(--cyan); font-weight: 700; }
+  .wdr { color: var(--grey); }
+
+  footer { text-align: center; color: #5f7396; font-size: 0.78rem; margin-top: 26px; letter-spacing: 1px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topline">
+    <span>🧠 Donald-gränssnitt <span class="dot">+</span></span>
+    <span>Sten, Sax, Påse <span class="dot">●</span></span>
+    <span>Oskar-AI-gränssnitt <span class="dot">+</span></span>
+  </div>
+  <h1>Sten + Sax + Påse.&nbsp; Agent + Agent.</h1>
+  <div class="subtitle">Spelar tillsammans · 100 omgångar</div>
+
+  <!-- ===== DUELL-LINJEN ===== -->
+  <section class="panel duel">
+    <div class="panel-title">Duell-linje · övertaget</div>
+    <div class="controls">
+      <button class="btn" id="btnPlay">⏸ Pausa</button>
+      <button class="btn warn" id="btnRestart">⟲ Kör igen</button>
+      <select id="speedSel">
+        <option value="0.5">0.5×</option>
+        <option value="1" selected>1×</option>
+        <option value="2">2×</option>
+        <option value="4">4×</option>
+      </select>
+      <span class="progress" id="progress">Omgång 0/100</span>
+    </div>
+    <div class="duelcanvasbox"><canvas id="duelCanvas"></canvas></div>
+    <div class="duelcaption">
+      <span class="dl">🧨 Donald</span>
+      <span class="dc" id="lineInfo">Linjen flyter mot den agent som vann senaste omgången</span>
+      <span class="dr">Oskar 🌊</span>
+    </div>
+  </section>
+
+  <div class="grid">
+    <!-- DONALD -->
+    <section class="panel donald">
+      <div class="panel-title">Donald · Kod</div>
+      <div class="code">
+        <span class="kw">import</span> random<br>
+        <span class="kw">def</span> <span class="fn">donald</span>(n):<br>
+        &nbsp;&nbsp;<span class="kw">return</span> random<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;.choice(MOVES)
+      </div>
+      <div class="panel-title">Senaste drag</div>
+      <div class="log" id="donaldLog"></div>
+    </section>
+
+    <!-- MATCHFLÖDE -->
+    <section class="panel">
+      <div class="panel-title">Matchflöde</div>
+      <div class="roundno" id="roundNo">Väntar på första omgången …</div>
+      <div class="battle">
+        <div class="hand d"><span class="e" id="dEmoji">✊</span><span class="nm" id="dMove">—</span></div>
+        <div class="vs">VS</div>
+        <div class="hand o"><span class="e" id="oEmoji">✊</span><span class="nm" id="oMove">—</span></div>
+      </div>
+      <div class="verdict dr" id="verdict"></div>
+      <div class="scoreline">
+        <span class="s d" id="dScore">0</span>
+        <span class="sep">:</span>
+        <span class="s o" id="oScore">0</span>
+      </div>
+      <div class="flowtitle">Vinstflöde per val</div>
+      <div class="bars">
+        <div class="bar-row"><span>✊ Sten</span>
+          <div class="bar-track"><div class="bar-fill b-sten" id="barSten"></div></div>
+          <span class="bar-meta" id="metaSten">0 · 0%</span></div>
+        <div class="bar-row"><span>✌️ Sax</span>
+          <div class="bar-track"><div class="bar-fill b-sax" id="barSax"></div></div>
+          <span class="bar-meta" id="metaSax">0 · 0%</span></div>
+        <div class="bar-row"><span>✋ Påse</span>
+          <div class="bar-track"><div class="bar-fill b-pase" id="barPase"></div></div>
+          <span class="bar-meta" id="metaPase">0 · 0%</span></div>
+      </div>
+    </section>
+
+    <!-- OSKAR -->
+    <section class="panel">
+      <div class="panel-title">Oskar · AI</div>
+      <div class="ai-msg">Jag analyserar dina senaste drag och hittar mönster:</div>
+      <div class="ai-box">
+        <span class="lbl">Mönsterdetektering</span>
+        <span id="aiPattern">Väntar på data …</span>
+      </div>
+      <div class="ai-box">
+        <span class="lbl">Förtroende för prediktion</span>
+        <div class="conf-track"><div class="conf-fill" id="confFill"></div></div>
+        <div style="margin-top:6px" id="confPct">Vinstprocent Oskar: 0 %</div>
+      </div>
+      <div class="ai-box">
+        <span class="lbl">Analys · sista beslut</span>
+        <div id="aiLog" style="max-height:120px;overflow-y:auto;font-size:.78rem"></div>
+      </div>
+      <div class="auto-on">● AUTO-KORRIGERING: PÅ</div>
+    </section>
+  </div>
+
+  <section class="panel trendpanel">
+    <div class="panel-title">Trend · senaste 20 omgångar</div>
+    <div class="trendline">
+      <div class="trend" id="trend"></div>
+      <div class="trend-legend">
+        <span><i class="lg-w"></i>Donald-vinst</span>
+        <span><i class="lg-l"></i>Oskar-vinst</span>
+        <span><i class="lg-d"></i>Oavgjort</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="statgrid">
+    <div class="stat"><div class="lbl">Totalt</div><div class="num gold" id="statTotal">0</div></div>
+    <div class="stat"><div class="lbl">Donald</div><div class="num orange" id="statDonald">0</div></div>
+    <div class="stat"><div class="lbl">Oskar</div><div class="num cyan" id="statOskar">0</div></div>
+    <div class="stat"><div class="lbl">Oavgjort</div><div class="num grey" id="statDraw">0</div></div>
+  </div>
+
+  <div class="highlight" id="bestHighlight">Matchen spelas … bästa utfallet visas när alla 100 omgångar är klara.</div>
+
+  <details class="tablecard">
+    <summary>Alla 100 omgångar</summary>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>#</th><th>Donald</th><th>Oskar</th><th>Vinnare</th></tr></thead>
+        <tbody id="roundsBody"></tbody>
+      </table>
+    </div>
+  </details>
+
+  <footer>Simulerad match · 100 omgångar · Donald 🧨 vs Oskar 🌊 · Agent + Agent</footer>
+</div>
+
+<script>
+const EMOJI = { "Sten": "✊", "Sax": "✌️", "Påse": "✋" };
+const BEATS = { "Sten": "Sax", "Sax": "Påse", "Påse": "Sten" };
+const COLOR = { "Donald": "#ff9f43", "Oskar": "#4dd8ff", "Oavgjort": "#8fa3c8" };
+const MOVECOLOR = { "Sten": "#ffd32a", "Sax": "#4dd8ff", "Påse": "#ff9f43" };
+const rounds = [{"round": 1, "donald": "Påse", "oskar": "Sten", "winner": "Donald"}, {"round": 2, "donald": "Sten", "oskar": "Påse", "winner": "Oskar"}, {"round": 3, "donald": "Sax", "oskar": "Sten", "winner": "Oskar"}, {"round": 4, "donald": "Sten", "oskar": "Sten", "winner": "Oavgjort"}, {"round": 5, "donald": "Påse", "oskar": "Sten", "winner": "Donald"}, {"round": 6, "donald": "Påse", "oskar": "Påse", "winner": "Oavgjort"}, {"round": 7, "donald": "Påse", "oskar": "Sten", "winner": "Donald"}, {"round": 8, "donald": "Påse", "oskar": "Sax", "winner": "Oskar"}, {"round": 9, "donald": "Sten", "oskar": "Sten", "winner": "Oavgjort"}, {"round": 10, "donald": "Sten", "oskar": "Sten", "winner": "Oavgjort"}, {"round": 11, "donald": "Sten", "oskar": "Påse", "winner": "Oskar"}, {"round": 12, "donald": "Påse", "oskar": "Sten", "winner": "Donald"}, {"round": 13, "donald": "Påse", "oskar": "Sten", "winner": "Donald"}, {"round": 14, "donald": "Påse", "oskar": "Påse", "winner": "Oavgjort"}, {"round": 15, "donald": "Påse", "oskar": "Påse", "winner": "Oavgjort"}, {"round": 16, "donald": "Sax", "oskar": "Sten", "winner": "Oskar"}, {"round": 17, "donald": "Sax", "oskar": "Påse", "winner": "Donald"}, {"round": 18, "donald": "Sax", "oskar": "Sten", "winner": "Oskar"}, {"round": 19, "donald": "Sten", "oskar": "Påse", "winner": "Oskar"}, {"round": 20, "donald": "Sax", "oskar": "Sax", "winner": "Oavgjort"}, {"round": 21, "donald": "Sax", "oskar": "Sten", "winner": "Oskar"}, {"round": 22, "donald": "Sten", "oskar": "Sax", "winner": "Donald"}, {"round": 23, "donald": "Sten", "oskar": "Sten", "winner": "Oavgjort"}, {"round": 24, "donald": "Sax", "oskar": "Sten", "winner": "Oskar"}, {"round": 25, "donald": "Sax", "oskar": "Sax", "winner": "Oavgjort"}, {"round": 26, "donald": "Påse", "oskar": "Sax", "winner": "Oskar"}, {"round": 27, "donald": "Sten", "oskar": "Påse", "winner": "Oskar"}, {"round": 28, "donald": "Sax", "oskar": "Påse", "winner": "Donald"}, {"round": 29, "donald": "Sten", "oskar": "Sax", "winner": "Donald"}, {"round": 30, "donald": "Sten", "oskar": "Påse", "winner": "Oskar"}, {"round": 31, "donald": "Sax", "oskar": "Påse", "winner": "Donald"}, {"round": 32, "donald": "Påse", "oskar": "Sax", "winner": "Oskar"}, {"round": 33, "donald": "Påse", "oskar": "Sten", "winner": "Donald"}, {"round": 34, "donald": "Påse", "oskar": "Sten", "winner": "Donald"}, {"round": 35, "donald": "Sten", "oskar": "Påse", "winner": "Oskar"}, {"round": 36, "donald": "Sten", "oskar": "Sax", "winner": "Donald"}, {"round": 37, "donald": "Sten", "oskar": "Sten", "winner": "Oavgjort"}, {"round": 38, "donald": "Sten", "oskar": "Sax", "winner": "Donald"}, {"round": 39, "donald": "Sax", "oskar": "Sax", "winner": "Oavgjort"}, {"round": 40, "donald": "Påse", "oskar": "Sax", "winner": "Oskar"}, {"round": 41, "donald": "Sten", "oskar": "Sax", "winner": "Donald"}, {"round": 42, "donald": "Sax", "oskar": "Sten", "winner": "Oskar"}, {"round": 43, "donald": "Påse", "oskar": "Sax", "winner": "Oskar"}, {"round": 44, "donald": "Påse", "oskar": "Påse", "winner": "Oavgjort"}, {"round": 45, "donald": "Påse", "oskar": "Sten", "winner": "Donald"}, {"round": 46, "donald": "Påse", "oskar": "Påse", "winner": "Oavgjort"}, {"round": 47, "donald": "Sten", "oskar": "Påse", "winner": "Oskar"}, {"round": 48, "donald": "Påse", "oskar": "Sten", "winner": "Donald"}, {"round": 49, "donald": "Sten", "oskar": "Sax", "winner": "Donald"}, {"round": 50, "donald": "Sax", "oskar": "Sax", "winner": "Oavgjort"}, {"round": 51, "donald": "Påse", "oskar": "Påse", "winner": "Oavgjort"}, {"round": 52, "donald": "Påse", "oskar": "Sten", "winner": "Donald"}, {"round": 53, "donald": "Påse", "oskar": "Sax", "winner": "Oskar"}, {"round": 54, "donald": "Sten", "oskar": "Sten", "winner": "Oavgjort"}, {"round": 55, "donald": "Sten", "oskar": "Sax", "winner": "Donald"}, {"round": 56, "donald": "Sax", "oskar": "Sax", "winner": "Oavgjort"}, {"round": 57, "donald": "Sten", "oskar": "Sten", "winner": "Oavgjort"}, {"round": 58, "donald": "Påse", "oskar": "Påse", "winner": "Oavgjort"}, {"round": 59, "donald": "Sax", "oskar": "Sten", "winner": "Oskar"}, {"round": 60, "donald": "Påse", "oskar": "Sax", "winner": "Oskar"}, {"round": 61, "donald": "Sax", "oskar": "Påse", "winner": "Donald"}, {"round": 62, "donald": "Sax", "oskar": "Sten", "winner": "Oskar"}, {"round": 63, "donald": "Sax", "oskar": "Sten", "winner": "Oskar"}, {"round": 64, "donald": "Sten", "oskar": "Påse", "winner": "Oskar"}, {"round": 65, "donald": "Påse", "oskar": "Påse", "winner": "Oavgjort"}, {"round": 66, "donald": "Sax", "oskar": "Påse", "winner": "Donald"}, {"round": 67, "donald": "Påse", "oskar": "Sax", "winner": "Oskar"}, {"round": 68, "donald": "Påse", "oskar": "Sax", "winner": "Oskar"}, {"round": 69, "donald": "Sax", "oskar": "Sten", "winner": "Oskar"}, {"round": 70, "donald": "Sten", "oskar": "Påse", "winner": "Oskar"}, {"round": 71, "donald": "Sax", "oskar": "Sten", "winner": "Oskar"}, {"round": 72, "donald": "Sten", "oskar": "Sten", "winner": "Oavgjort"}, {"round": 73, "donald": "Sten", "oskar": "Påse", "winner": "Oskar"}, {"round": 74, "donald": "Sten", "oskar": "Påse", "winner": "Oskar"}, {"round": 75, "donald": "Sax", "oskar": "Påse", "winner": "Donald"}, {"round": 76, "donald": "Sten", "oskar": "Sax", "winner": "Donald"}, {"round": 77, "donald": "Sax", "oskar": "Påse", "winner": "Donald"}, {"round": 78, "donald": "Sax", "oskar": "Påse", "winner": "Donald"}, {"round": 79, "donald": "Sax", "oskar": "Påse", "winner": "Donald"}, {"round": 80, "donald": "Sten", "oskar": "Påse", "winner": "Oskar"}, {"round": 81, "donald": "Påse", "oskar": "Sten", "winner": "Donald"}, {"round": 82, "donald": "Påse", "oskar": "Påse", "winner": "Oavgjort"}, {"round": 83, "donald": "Sax", "oskar": "Påse", "winner": "Donald"}, {"round": 84, "donald": "Sax", "oskar": "Sten", "winner": "Oskar"}, {"round": 85, "donald": "Sax", "oskar": "Sax", "winner": "Oavgjort"}, {"round": 86, "donald": "Sten", "oskar": "Sax", "winner": "Donald"}, {"round": 87, "donald": "Sten", "oskar": "Påse", "winner": "Oskar"}, {"round": 88, "donald": "Påse", "oskar": "Sax", "winner": "Oskar"}, {"round": 89, "donald": "Påse", "oskar": "Sten", "winner": "Donald"}, {"round": 90, "donald": "Påse", "oskar": "Sten", "winner": "Donald"}, {"round": 91, "donald": "Påse", "oskar": "Sax", "winner": "Oskar"}, {"round": 92, "donald": "Påse", "oskar": "Påse", "winner": "Oavgjort"}, {"round": 93, "donald": "Påse", "oskar": "Sten", "winner": "Donald"}, {"round": 94, "donald": "Sten", "oskar": "Sax", "winner": "Donald"}, {"round": 95, "donald": "Sten", "oskar": "Påse", "winner": "Oskar"}, {"round": 96, "donald": "Påse", "oskar": "Sten", "winner": "Donald"}, {"round": 97, "donald": "Påse", "oskar": "Sax", "winner": "Oskar"}, {"round": 98, "donald": "Sax", "oskar": "Sten", "winner": "Oskar"}, {"round": 99, "donald": "Sten", "oskar": "Sax", "winner": "Donald"}, {"round": 100, "donald": "Sax", "oskar": "Sten", "winner": "Oskar"}];
+
+// Oskars AI-analyser (före varje omgång, baserat på Donalds historik)
+const donaldHistAll = [];
+const analysisAll = rounds.map(r => {
+  let pattern = null, counter = null;
+  if (donaldHistAll.length >= 2 && donaldHistAll[donaldHistAll.length-1] === donaldHistAll[donaldHistAll.length-2]) {
+    pattern = donaldHistAll[donaldHistAll.length-1];
+    counter = Object.keys(BEATS).find(m => BEATS[m] === pattern);
+  }
+  donaldHistAll.push(r.donald);
+  return { pattern, counter, hit: counter === r.oskar };
+});
+
+// ---------- Tillstånd ----------
+let idx = 0;                    // nästa omgång att spela
+let dScore = 0, oScore = 0, draws = 0;
+const moveWins = { "Sten": 0, "Sax": 0, "Påse": 0 };
+const donaldHist = [];
+let lastWinner = null;          // styr linjens riktning
+let playing = true;
+let phase = "flow";             // "flow" | "pause"
+let phaseStart = performance.now();
+let flashUntil = 0;
+let speed = 1;
+const FLOW_MS = 620, PAUSE_MS = 240;
+let arrowT = 0;   // pilens position 0..1 under en pågående omgång
+let curIdx = -1;  // omgången som spelas/senast spelades
+
+// ---------- DOM-referenser ----------
+const $ = id => document.getElementById(id);
+const els = {
+  roundNo: $("roundNo"), dEmoji: $("dEmoji"), oEmoji: $("oEmoji"),
+  dMove: $("dMove"), oMove: $("oMove"), verdict: $("verdict"),
+  dScore: $("dScore"), oScore: $("oScore"),
+  barSten: $("barSten"), barSax: $("barSax"), barPase: $("barPase"),
+  metaSten: $("metaSten"), metaSax: $("metaSax"), metaPase: $("metaPase"),
+  aiPattern: $("aiPattern"), confFill: $("confFill"), confPct: $("confPct"),
+  aiLog: $("aiLog"), dLog: $("donaldLog"), trend: $("trend"),
+  statTotal: $("statTotal"), statDonald: $("statDonald"),
+  statOskar: $("statOskar"), statDraw: $("statDraw"),
+  bestHighlight: $("bestHighlight"), roundsBody: $("roundsBody"),
+  progress: $("progress"), lineInfo: $("lineInfo"),
+  btnPlay: $("btnPlay"), btnRestart: $("btnRestart"), speedSel: $("speedSel"),
+};
+
+// Bygg tabellrader + trendplattform i förväg (dolda tills de spelas)
+const trendSpans = [];
+rounds.forEach(r => {
+  const tr = document.createElement("tr");
+  tr.className = "hiddenrow";
+  const cls = r.winner === "Donald" ? "wd" : r.winner === "Oskar" ? "wo" : "wdr";
+  tr.innerHTML = `<td>${r.round}</td>
+    <td>${EMOJI[r.donald]} ${r.donald}</td>
+    <td>${EMOJI[r.oskar]} ${r.oskar}</td>
+    <td class="${cls}">${r.winner === "Oavgjort" ? "🤝" : "🏆 " + r.winner}</td>`;
+  els.roundsBody.appendChild(tr);
+  r._tr = tr;
+  const s = document.createElement("span");
+  s.className = r.winner === "Donald" ? "tw" : r.winner === "Oskar" ? "tl" : "td";
+  els.trend.appendChild(s);
+  trendSpans.push(s);
+});
+
+// ---------- Uppdatering vid en spelad omgång ----------
+function resolveRound(i) {
+  const r = rounds[i];
+  const a = analysisAll[i];
+  donaldHist.push(r.donald);
+
+  if (r.winner === "Donald") { dScore++; moveWins[r.donald]++; }
+  else if (r.winner === "Oskar") { oScore++; moveWins[r.oskar]++; }
+  else draws++;
+  lastWinner = r.winner;
+  flashUntil = performance.now() + 380;
+
+  els.roundNo.textContent = `OMGÅNG ${r.round}/100`;
+  els.dEmoji.textContent = EMOJI[r.donald];
+  els.oEmoji.textContent = EMOJI[r.oskar];
+  els.dMove.textContent = r.donald;
+  els.oMove.textContent = r.oskar;
+  const v = els.verdict;
+  if (r.winner === "Donald") { v.textContent = "▸ DONALD +1 — linjen drar åt vänster"; v.className = "verdict d"; }
+  else if (r.winner === "Oskar") { v.textContent = "▸ OSKAR +1 — linjen drar åt höger"; v.className = "verdict o"; }
+  else { v.textContent = "▸ LIKA — linjen är neutral"; v.className = "verdict dr"; }
+
+  els.dScore.textContent = dScore;
+  els.oScore.textContent = oScore;
+  const total = (dScore + oScore) || 1;
+  const setBar = (bar, meta, mv) => {
+    els[bar].style.width = (moveWins[mv] / total * 100) + "%";
+    els[meta].textContent = `${moveWins[mv]} · ${Math.round(moveWins[mv]/total*100)}%`;
+  };
+  setBar("barSten", "metaSten", "Sten");
+  setBar("barSax", "metaSax", "Sax");
+  setBar("barPase", "metaPase", "Påse");
+
+  els.confFill.style.width = Math.round(oScore / total * 100) + "%";
+  els.confPct.textContent = `Vinstprocent Oskar: ${Math.round(oScore / total * 100)} %`;
+
+  if (a.pattern) {
+    els.aiPattern.innerHTML =
+      `Du upprepade <span class="pattern">${EMOJI[a.pattern]} ${a.pattern}</span> — ` +
+      `AI spelade ${EMOJI[a.counter]} ${a.counter} ` +
+      `(${a.hit ? "<b style='color:#7bed9f'>träff</b>" : "<b style='color:#ff6b81'>miss</b>"}).`;
+  } else {
+    els.aiPattern.innerHTML = "Inget stabilt mönster — slumpt-läge.";
+  }
+  const div = document.createElement("div");
+  div.style.marginBottom = "5px";
+  div.innerHTML = a.pattern
+    ? `r${r.round}: mönster ${EMOJI[a.pattern]} → ${EMOJI[a.counter]} ${a.hit ? "✔" : "✘"}`
+    : `r${r.round}: <span style="color:#8fa3c8">slumpt-läge</span>`;
+  els.aiLog.appendChild(div);
+  els.aiLog.scrollTop = els.aiLog.scrollHeight;
+
+  const row = document.createElement("div");
+  row.className = "logrow";
+  const cls = r.winner === "Donald" ? "res-w" : r.winner === "Oskar" ? "res-l" : "res-d";
+  const res = r.winner === "Donald" ? "VINST" : r.winner === "Oskar" ? "FÖRLUST" : "LIKA";
+  row.innerHTML = `<span class="rn">r${String(r.round).padStart(3,"0")}</span>
+    <span>${EMOJI[r.donald]} ${r.donald}</span><span class="${cls}">${res}</span>`;
+  els.dLog.appendChild(row);
+  els.dLog.scrollTop = els.dLog.scrollHeight;
+
+  trendSpans[i].classList.add("shown");
+  r._tr.classList.remove("hiddenrow");
+  if (r._tr.scrollIntoView && els.roundsBody.closest("details").open === false) { /* tabellen är stängd, ingen scroll */ }
+
+  els.statTotal.textContent = r.round;
+  els.statDonald.textContent = dScore;
+  els.statOskar.textContent = oScore;
+  els.statDraw.textContent = draws;
+  els.progress.textContent = `Omgång ${r.round}/100`;
+  els.lineInfo.textContent =
+    r.winner === "Oavgjort" ? "Oavgjort — energin står still" :
+    `Energin flyter mot ${r.winner} (vann omgång ${r.round})`;
+}
+
+function onFinish() {
+  const best = Object.keys(moveWins).reduce((a, b) => moveWins[a] >= moveWins[b] ? a : b);
+  els.bestHighlight.innerHTML =
+    `🏆 <strong>${EMOJI[best]} ${best}</strong> var det bästa utfallet — ` +
+    `<strong>${moveWins[best]}</strong> av ${dScore + oScore} vunna matcher ` +
+    `(${Math.round(moveWins[best] / (dScore + oScore) * 100)} %). ` +
+    `Slutställning: Donald ${dScore} – Oskar ${oScore} (${draws} oavgjorda).` +
+    (oScore > dScore ? " 🌊 Oskar vann matchen!" : dScore > oScore ? " 🧨 Donald vann matchen!" : " 🤝 Helt oavgjort!");
+  els.btnPlay.textContent = "⟲ Kör igen";
+  playing = false;
+  phase = "done";
+}
+
+function restart() {
+  idx = 0; dScore = oScore = draws = 0;
+  for (const m of MOVES_KEYS()) moveWins[m] = 0;
+  donaldHist.length = 0; lastWinner = null;
+  curIdx = -1; arrowT = 0;
+  els.dLog.innerHTML = ""; els.aiLog.innerHTML = "";
+  trendSpans.forEach(s => s.classList.remove("shown"));
+  rounds.forEach(r => r._tr.classList.add("hiddenrow"));
+  els.bestHighlight.textContent = "Matchen spelas … bästa utfallet visas när alla 100 omgångar är klara.";
+  els.roundNo.textContent = "Väntar på första omgången …";
+  els.dScore.textContent = "0"; els.oScore.textContent = "0";
+  els.confFill.style.width = "0%";
+  els.btnPlay.textContent = "⏸ Pausa";
+  playing = true; phase = "flow"; phaseStart = performance.now();
+}
+function MOVES_KEYS() { return ["Sten", "Sax", "Påse"]; }
+
+els.btnPlay.addEventListener("click", () => {
+  if (phase === "done") { restart(); return; }
+  playing = !playing;
+  if (playing) { phaseStart = performance.now(); els.btnPlay.textContent = "⏸ Pausa"; }
+  else els.btnPlay.textContent = "▶ Fortsätt";
+});
+els.btnRestart.addEventListener("click", restart);
+els.speedSel.addEventListener("change", e => { speed = parseFloat(e.target.value); });
+
+// ---------- Canvas: duell-linjen ----------
+const canvas = $("duelCanvas");
+const ctx = canvas.getContext("2d");
+let W = 0, H = 0;
+function resize() {
+  const dpr = window.devicePixelRatio || 1;
+  W = canvas.clientWidth; H = canvas.clientHeight;
+  canvas.width = W * dpr; canvas.height = H * dpr;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+window.addEventListener("resize", resize);
+
+function qpoint(t, x0, y0, cx, cy, x1, y1) {
+  const u = 1 - t;
+  return [u*u*x0 + 2*u*t*cx + t*t*x1, u*u*y0 + 2*u*t*cy + t*t*y1];
+}
+
+function easeInOut(t) {
+  return t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t + 2, 2) / 2;
+}
+
+// En pil som flyger längs linjen: svans av tunnande prickar + glödande pilhuvud
+function drawArrow(fromX, fromY, toX, toY, t, col, cx, cy) {
+  if (t <= 0) return;
+  t = Math.min(t, 1);
+  const [ax, ay] = qpoint(t, fromX, fromY, cx, cy, toX, toY);
+  const t2 = Math.min(t + 0.012, 1);
+  const [bx, by] = qpoint(t2, fromX, fromY, cx, cy, toX, toY);
+  const ang = Math.atan2(by - ay, bx - ax);
+  ctx.save();
+  ctx.shadowBlur = 12; ctx.shadowColor = col; ctx.fillStyle = col;
+  for (let i = 1; i <= 6; i++) {
+    const tt = Math.max(t - i * 0.035, 0);
+    const [tx, ty] = qpoint(tt, fromX, fromY, cx, cy, toX, toY);
+    ctx.globalAlpha = 0.5 * (1 - i / 7);
+    ctx.beginPath(); ctx.arc(tx, ty, 3.2 - i * 0.35, 0, Math.PI * 2); ctx.fill();
+  }
+  ctx.restore();
+  ctx.save();
+  ctx.translate(ax, ay); ctx.rotate(ang);
+  ctx.shadowBlur = 16; ctx.shadowColor = col; ctx.fillStyle = col;
+  ctx.beginPath();
+  ctx.moveTo(11, 0); ctx.lineTo(-6, -6); ctx.lineTo(-3, 0); ctx.lineTo(-6, 6);
+  ctx.closePath(); ctx.fill();
+  ctx.restore();
+}
+
+// Hand-cirkel ovanför agentens avatar: visar vad agenten spelade
+function drawHand(x, y, move, color) {
+  ctx.save();
+  ctx.shadowBlur = 12; ctx.shadowColor = color;
+  ctx.fillStyle = "rgba(10,22,58,0.95)";
+  ctx.strokeStyle = color; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.arc(x, y, 13, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+  ctx.restore();
+  ctx.save();
+  ctx.font = "14px Segoe UI"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  ctx.fillText(EMOJI[move], x, y + 1);
+  ctx.restore();
+}
+
+function drawBeam(now) {
+  const x0 = 54, x1 = W - 54, y = H * 0.48;
+  const cx = W / 2, cy = y + 26;
+
+  // Flash i vinnarens färg precis efter en avgörd omgång
+  const flashing = now < flashUntil && lastWinner;
+  const baseColor = flashing ? COLOR[lastWinner] : "rgba(77, 216, 255, 0.55)";
+
+  ctx.save();
+  ctx.shadowBlur = 18;
+  ctx.shadowColor = baseColor;
+  ctx.strokeStyle = baseColor;
+  ctx.lineWidth = flashing ? 4 : 2.5;
+  ctx.beginPath();
+  ctx.moveTo(x0, y);
+  ctx.quadraticCurveTo(cx, cy, x1, y);
+  ctx.stroke();
+  ctx.restore();
+
+  // Händer: visa vad varje agent spelar i aktuell omgång
+  if (curIdx >= 0 && curIdx < rounds.length) {
+    const r = rounds[curIdx];
+    drawHand(x0, y - 34, r.donald, "#ff9f43");
+    drawHand(x1, y - 34, r.oskar, "#4dd8ff");
+  }
+
+  // EN pil per omgång: flyger från förloraren till vinnaren
+  if (phase === "flow" && curIdx >= 0 && curIdx < rounds.length) {
+    const r = rounds[curIdx];
+    const tEase = easeInOut(arrowT);
+    const col = COLOR[r.winner];
+    if (r.winner === "Donald") {
+      drawArrow(x1, y, x0, y, tEase, col, cx, cy);   // höger → vänster
+    } else if (r.winner === "Oskar") {
+      drawArrow(x0, y, x1, y, tEase, col, cx, cy);   // vänster → höger
+    } else {
+      drawArrow(x0, y, cx, y, tEase * 0.5, col, cx, cy);  // oavgjort: mot mitten
+      drawArrow(x1, y, cx, y, tEase * 0.5, col, cx, cy);
+    }
+  }
+
+  // Balansmarkör: glider mot den som leder matchen totalt
+  const decisive = dScore + oScore;
+  if (decisive > 0) {
+    const diff = (dScore - oScore) / decisive;
+    const p = 0.5 + diff * 0.38;
+    const [mx, my] = qpoint(p, x0, y, cx, cy, x1, y);
+    const lead = dScore > oScore ? "Donald" : oScore > dScore ? "Oskar" : null;
+    const mcol = lead ? COLOR[lead] : "rgba(143,163,200,0.9)";
+    ctx.save();
+    ctx.translate(mx, my); ctx.rotate(Math.PI / 4);
+    ctx.shadowBlur = 14; ctx.shadowColor = mcol; ctx.fillStyle = mcol;
+    ctx.fillRect(-5, -5, 10, 10);
+    ctx.restore();
+  }
+
+  // Noder: agent-avatars i ändarna
+  drawNode(x0, y, "🧨", "#ff9f43");
+  drawNode(x1, y, "🌊", "#4dd8ff");
+
+  // Mitten: puls vid avgörande
+  if (flashing) {
+    const age = (flashUntil - now) / 380;
+    ctx.save();
+    ctx.globalAlpha = age * 0.8;
+    ctx.strokeStyle = COLOR[lastWinner];
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.arc(cx, y, 14 + (1 - age) * 26, 0, Math.PI * 2); ctx.stroke();
+    ctx.restore();
+  }
+  // Mitten-UI: "VS" under spelet, vinnarbadge när pilen landat
+  const badgeMode = (phase === "pause" || phase === "done") && lastWinner;
+  const ringCol = badgeMode ? COLOR[lastWinner] : "rgba(77,216,255,.7)";
+  ctx.save();
+  ctx.shadowBlur = 14; ctx.shadowColor = badgeMode ? ringCol : "rgba(77,216,255,.8)";
+  ctx.fillStyle = "rgba(10,22,58,0.9)";
+  ctx.strokeStyle = ringCol; ctx.lineWidth = badgeMode ? 2.5 : 1.5;
+  ctx.beginPath(); ctx.arc(W/2, y, 17, 0, Math.PI*2); ctx.fill(); ctx.stroke();
+  ctx.restore();
+  ctx.save();
+  ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  if (badgeMode) {
+    ctx.fillStyle = COLOR[lastWinner];
+    ctx.font = "bold 11px Segoe UI";
+    ctx.fillText(lastWinner === "Donald" ? "D +1" : "O +1", W/2, y + 1);
+  } else if (phase === "flow" && curIdx >= 0 && rounds[curIdx] && rounds[curIdx].winner === "Oavgjort") {
+    ctx.fillStyle = "#8fa3c8"; ctx.font = "bold 12px Segoe UI";
+    ctx.fillText("=", W/2, y + 1);
+  } else {
+    ctx.fillStyle = "#e8f0ff"; ctx.font = "bold 11px Segoe UI";
+    ctx.fillText("VS", W/2, y + 1);
+  }
+  ctx.restore();
+}
+
+function drawNode(x, y, emoji, color) {
+  ctx.save();
+  ctx.shadowBlur = 20; ctx.shadowColor = color;
+  ctx.fillStyle = "rgba(10,22,58,0.95)";
+  ctx.strokeStyle = color; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.arc(x, y, 20, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+  ctx.restore();
+  ctx.save();
+  ctx.font = "18px Segoe UI"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  ctx.fillText(emoji, x, y + 1);
+  ctx.restore();
+}
+
+function frame(now) {
+  if (!W) resize();
+  ctx.clearRect(0, 0, W, H);
+  drawBeam(now);
+
+  if (phase === "flow") {
+    curIdx = idx;
+    if (playing) {
+      const t = Math.min((now - phaseStart) / (FLOW_MS / speed), 1);
+      arrowT = t;
+      if (t >= 1) { resolveRound(idx); arrowT = 0; phase = "pause"; phaseStart = now; }
+    }
+  } else if (phase === "pause") {
+    arrowT = 0;
+    if (playing && now - phaseStart >= PAUSE_MS / speed) {
+      idx++;
+      if (idx >= rounds.length) { onFinish(); }
+      else { phase = "flow"; phaseStart = now; }
+    }
+  }
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

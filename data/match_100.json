@@ -1,0 +1,625 @@
+{
+  "rounds": [
+    {
+      "round": 1,
+      "donald": "Påse",
+      "oskar": "Sten",
+      "winner": "Donald"
+    },
+    {
+      "round": 2,
+      "donald": "Sten",
+      "oskar": "Påse",
+      "winner": "Oskar"
+    },
+    {
+      "round": 3,
+      "donald": "Sax",
+      "oskar": "Sten",
+      "winner": "Oskar"
+    },
+    {
+      "round": 4,
+      "donald": "Sten",
+      "oskar": "Sten",
+      "winner": "Oavgjort"
+    },
+    {
+      "round": 5,
+      "donald": "Påse",
+      "oskar": "Sten",
+      "winner": "Donald"
+    },
+    {
+      "round": 6,
+      "donald": "Påse",
+      "oskar": "Påse",
+      "winner": "Oavgjort"
+    },
+    {
+      "round": 7,
+      "donald": "Påse",
+      "oskar": "Sten",
+      "winner": "Donald"
+    },
+    {
+      "round": 8,
+      "donald": "Påse",
+      "oskar": "Sax",
+      "winner": "Oskar"
+    },
+    {
+      "round": 9,
+      "donald": "Sten",
+      "oskar": "Sten",
+      "winner": "Oavgjort"
+    },
+    {
+      "round": 10,
+      "donald": "Sten",
+      "oskar": "Sten",
+      "winner": "Oavgjort"
+    },
+    {
+      "round": 11,
+      "donald": "Sten",
+      "oskar": "Påse",
+      "winner": "Oskar"
+    },
+    {
+      "round": 12,
+      "donald": "Påse",
+      "oskar": "Sten",
+      "winner": "Donald"
+    },
+    {
+      "round": 13,
+      "donald": "Påse",
+      "oskar": "Sten",
+      "winner": "Donald"
+    },
+    {
+      "round": 14,
+      "donald": "Påse",
+      "oskar": "Påse",
+      "winner": "Oavgjort"
+    },
+    {
+      "round": 15,
+      "donald": "Påse",
+      "oskar": "Påse",
+      "winner": "Oavgjort"
+    },
+    {
+      "round": 16,
+      "donald": "Sax",
+      "oskar": "Sten",
+      "winner": "Oskar"
+    },
+    {
+      "round": 17,
+      "donald": "Sax",
+      "oskar": "Påse",
+      "winner": "Donald"
+    },
+    {
+      "round": 18,
+      "donald": "Sax",
+      "oskar": "Sten",
+      "winner": "Oskar"
+    },
+    {
+      "round": 19,
+      "donald": "Sten",
+      "oskar": "Påse",
+      "winner": "Oskar"
+    },
+    {
+      "round": 20,
+      "donald": "Sax",
+      "oskar": "Sax",
+      "winner": "Oavgjort"
+    },
+    {
+      "round": 21,
+      "donald": "Sax",
+      "oskar": "Sten",
+      "winner": "Oskar"
+    },
+    {
+      "round": 22,
+      "donald": "Sten",
+      "oskar": "Sax",
+      "winner": "Donald"
+    },
+    {
+      "round": 23,
+      "donald": "Sten",
+      "oskar": "Sten",
+      "winner": "Oavgjort"
+    },
+    {
+      "round": 24,
+      "donald": "Sax",
+      "oskar": "Sten",
+      "winner": "Oskar"
+    },
+    {
+      "round": 25,
+      "donald": "Sax",
+      "oskar": "Sax",
+      "winner": "Oavgjort"
+    },
+    {
+      "round": 26,
+      "donald": "Påse",
+      "oskar": "Sax",
+      "winner": "Oskar"
+    },
+    {
+      "round": 27,
+      "donald": "Sten",
+      "oskar": "Påse",
+      "winner": "Oskar"
+    },
+    {
+      "round": 28,
+      "donald": "Sax",
+      "oskar": "Påse",
+      "winner": "Donald"
+    },
+    {
+      "round": 29,
+      "donald": "Sten",
+      "oskar": "Sax",
+      "winner": "Donald"
+    },
+    {
+      "round": 30,
+      "donald": "Sten",
+      "oskar": "Påse",
+      "winner": "Oskar"
+    },
+    {
+      "round": 31,
+      "donald": "Sax",
+      "oskar": "Påse",
+      "winner": "Donald"
+    },
+    {
+      "round": 32,
+      "donald": "Påse",
+      "oskar": "Sax",
+      "winner": "Oskar"
+    },
+    {
+      "round": 33,
+      "donald": "Påse",
+      "oskar": "Sten",
+      "winner": "Donald"
+    },
+    {
+      "round": 34,
+      "donald": "Påse",
+      "oskar": "Sten",
+      "winner": "Donald"
+    },
+    {
+      "round": 35,
+      "donald": "Sten",
+      "oskar": "Påse",
+      "winner": "Oskar"
+    },
+    {
+      "round": 36,
+      "donald": "Sten",
+      "oskar": "Sax",
+      "winner": "Donald"
+    },
+    {
+      "round": 37,
+      "donald": "Sten",
+      "oskar": "Sten",
+      "winner": "Oavgjort"
+    },
+    {
+      "round": 38,
+      "donald": "Sten",
+      "oskar": "Sax",
+      "winner": "Donald"
+    },
+    {
+      "round": 39,
+      "donald": "Sax",
+      "oskar": "Sax",
+      "winner": "Oavgjort"
+    },
+    {
+      "round": 40,
+      "donald": "Påse",
+      "oskar": "Sax",
+      "winner": "Oskar"
+    },
+    {
+      "round": 41,
+      "donald": "Sten",
+      "oskar": "Sax",
+      "winner": "Donald"
+    },
+    {
+      "round": 42,
+      "donald": "Sax",
+      "oskar": "Sten",
+      "winner": "Oskar"
+    },
+    {
+      "round": 43,
+      "donald": "Påse",
+      "oskar": "Sax",
+      "winner": "Oskar"
+    },
+    {
+      "round": 44,
+      "donald": "Påse",
+      "oskar": "Påse",
+      "winner": "Oavgjort"
+    },
+    {
+      "round": 45,
+      "donald": "Påse",
+      "oskar": "Sten",
+      "winner": "Donald"
+    },
+    {
+      "round": 46,
+      "donald": "Påse",
+      "oskar": "Påse",
+      "winner": "Oavgjort"
+    },
+    {
+      "round": 47,
+      "donald": "Sten",
+      "oskar": "Påse",
+      "winner": "Oskar"
+    },
+    {
+      "round": 48,
+      "donald": "Påse",
+      "oskar": "Sten",
+      "winner": "Donald"
+    },
+    {
+      "round": 49,
+      "donald": "Sten",
+      "oskar": "Sax",
+      "winner": "Donald"
+    },
+    {
+      "round": 50,
+      "donald": "Sax",
+      "oskar": "Sax",
+      "winner": "Oavgjort"
+    },
+    {
+      "round": 51,
+      "donald": "Påse",
+      "oskar": "Påse",
+      "winner": "Oavgjort"
+    },
+    {
+      "round": 52,
+      "donald": "Påse",
+      "oskar": "Sten",
+      "winner": "Donald"
+    },
+    {
+      "round": 53,
+      "donald": "Påse",
+      "oskar": "Sax",
+      "winner": "Oskar"
+    },
+    {
+      "round": 54,
+      "donald": "Sten",
+      "oskar": "Sten",
+      "winner": "Oavgjort"
+    },
+    {
+      "round": 55,
+      "donald": "Sten",
+      "oskar": "Sax",
+      "winner": "Donald"
+    },
+    {
+      "round": 56,
+      "donald": "Sax",
+      "oskar": "Sax",
+      "winner": "Oavgjort"
+    },
+    {
+      "round": 57,
+      "donald": "Sten",
+      "oskar": "Sten",
+      "winner": "Oavgjort"
+    },
+    {
+      "round": 58,
+      "donald": "Påse",
+      "oskar": "Påse",
+      "winner": "Oavgjort"
+    },
+    {
+      "round": 59,
+      "donald": "Sax",
+      "oskar": "Sten",
+      "winner": "Oskar"
+    },
+    {
+      "round": 60,
+      "donald": "Påse",
+      "oskar": "Sax",
+      "winner": "Oskar"
+    },
+    {
+      "round": 61,
+      "donald": "Sax",
+      "oskar": "Påse",
+      "winner": "Donald"
+    },
+    {
+      "round": 62,
+      "donald": "Sax",
+      "oskar": "Sten",
+      "winner": "Oskar"
+    },
+    {
+      "round": 63,
+      "donald": "Sax",
+      "oskar": "Sten",
+      "winner": "Oskar"
+    },
+    {
+      "round": 64,
+      "donald": "Sten",
+      "oskar": "Påse",
+      "winner": "Oskar"
+    },
+    {
+      "round": 65,
+      "donald": "Påse",
+      "oskar": "Påse",
+      "winner": "Oavgjort"
+    },
+    {
+      "round": 66,
+      "donald": "Sax",
+      "oskar": "Påse",
+      "winner": "Donald"
+    },
+    {
+      "round": 67,
+      "donald": "Påse",
+      "oskar": "Sax",
+      "winner": "Oskar"
+    },
+    {
+      "round": 68,
+      "donald": "Påse",
+      "oskar": "Sax",
+      "winner": "Oskar"
+    },
+    {
+      "round": 69,
+      "donald": "Sax",
+      "oskar": "Sten",
+      "winner": "Oskar"
+    },
+    {
+      "round": 70,
+      "donald": "Sten",
+      "oskar": "Påse",
+      "winner": "Oskar"
+    },
+    {
+      "round": 71,
+      "donald": "Sax",
+      "oskar": "Sten",
+      "winner": "Oskar"
+    },
+    {
+      "round": 72,
+      "donald": "Sten",
+      "oskar": "Sten",
+      "winner": "Oavgjort"
+    },
+    {
+      "round": 73,
+      "donald": "Sten",
+      "oskar": "Påse",
+      "winner": "Oskar"
+    },
+    {
+      "round": 74,
+      "donald": "Sten",
+      "oskar": "Påse",
+      "winner": "Oskar"
+    },
+    {
+      "round": 75,
+      "donald": "Sax",
+      "oskar": "Påse",
+      "winner": "Donald"
+    },
+    {
+      "round": 76,
+      "donald": "Sten",
+      "oskar": "Sax",
+      "winner": "Donald"
+    },
+    {
+      "round": 77,
+      "donald": "Sax",
+      "oskar": "Påse",
+      "winner": "Donald"
+    },
+    {
+      "round": 78,
+      "donald": "Sax",
+      "oskar": "Påse",
+      "winner": "Donald"
+    },
+    {
+      "round": 79,
+      "donald": "Sax",
+      "oskar": "Påse",
+      "winner": "Donald"
+    },
+    {
+      "round": 80,
+      "donald": "Sten",
+      "oskar": "Påse",
+      "winner": "Oskar"
+    },
+    {
+      "round": 81,
+      "donald": "Påse",
+      "oskar": "Sten",
+      "winner": "Donald"
+    },
+    {
+      "round": 82,
+      "donald": "Påse",
+      "oskar": "Påse",
+      "winner": "Oavgjort"
+    },
+    {
+      "round": 83,
+      "donald": "Sax",
+      "oskar": "Påse",
+      "winner": "Donald"
+    },
+    {
+      "round": 84,
+      "donald": "Sax",
+      "oskar": "Sten",
+      "winner": "Oskar"
+    },
+    {
+      "round": 85,
+      "donald": "Sax",
+      "oskar": "Sax",
+      "winner": "Oavgjort"
+    },
+    {
+      "round": 86,
+      "donald": "Sten",
+      "oskar": "Sax",
+      "winner": "Donald"
+    },
+    {
+      "round": 87,
+      "donald": "Sten",
+      "oskar": "Påse",
+      "winner": "Oskar"
+    },
+    {
+      "round": 88,
+      "donald": "Påse",
+      "oskar": "Sax",
+      "winner": "Oskar"
+    },
+    {
+      "round": 89,
+      "donald": "Påse",
+      "oskar": "Sten",
+      "winner": "Donald"
+    },
+    {
+      "round": 90,
+      "donald": "Påse",
+      "oskar": "Sten",
+      "winner": "Donald"
+    },
+    {
+      "round": 91,
+      "donald": "Påse",
+      "oskar": "Sax",
+      "winner": "Oskar"
+    },
+    {
+      "round": 92,
+      "donald": "Påse",
+      "oskar": "Påse",
+      "winner": "Oavgjort"
+    },
+    {
+      "round": 93,
+      "donald": "Påse",
+      "oskar": "Sten",
+      "winner": "Donald"
+    },
+    {
+      "round": 94,
+      "donald": "Sten",
+      "oskar": "Sax",
+      "winner": "Donald"
+    },
+    {
+      "round": 95,
+      "donald": "Sten",
+      "oskar": "Påse",
+      "winner": "Oskar"
+    },
+    {
+      "round": 96,
+      "donald": "Påse",
+      "oskar": "Sten",
+      "winner": "Donald"
+    },
+    {
+      "round": 97,
+      "donald": "Påse",
+      "oskar": "Sax",
+      "winner": "Oskar"
+    },
+    {
+      "round": 98,
+      "donald": "Sax",
+      "oskar": "Sten",
+      "winner": "Oskar"
+    },
+    {
+      "round": 99,
+      "donald": "Sten",
+      "oskar": "Sax",
+      "winner": "Donald"
+    },
+    {
+      "round": 100,
+      "donald": "Sax",
+      "oskar": "Sten",
+      "winner": "Oskar"
+    }
+  ],
+  "donald_score": 36,
+  "oskar_score": 40,
+  "draws": 24,
+  "move_wins": {
+    "Påse": 29,
+    "Sten": 25,
+    "Sax": 22
+  },
+  "total_decisive": 76,
+  "best_move": "Påse",
+  "longest_streak": 5,
+  "donald_choices": {
+    "Påse": 37,
+    "Sten": 33,
+    "Sax": 30
+  },
+  "oskar_choices": {
+    "Sten": 37,
+    "Påse": 34,
+    "Sax": 29
+  }
+}
