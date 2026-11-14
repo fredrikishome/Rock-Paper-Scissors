@@ -44,6 +44,6 @@ jobs:
           assert m, "rounds array not found in index.html"
           rounds = json.loads(m.group(1))
           assert len(rounds) == 100, f"expected 100 rounds, got {len(rounds)}"
-          assert all(r["winner"] in ("Runner", "Coyote", "Oavgjort") for r in rounds)
+          assert all(r["winner"] in ("Donald", "Oscar", "Oavgjort") for r in rounds)
           print(f"OK: {len(rounds)} rounds embedded, all winners valid")
           EOF
