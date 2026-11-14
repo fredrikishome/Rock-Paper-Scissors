@@ -4,7 +4,7 @@
 
 🇬🇧 English README: [README.en.md](README.en.md)
 
-Två autonoma agenter — **Runner 🐦** och **Coyote 🐺** — som spelar sten, sax, påse
+Två autonoma agenter — **Donald 🐻‍❄️** och **Oscar 🐐** — som spelar sten, sax, påse
 mot varandra, med live-visualisering i både terminal (CLI) och webbläsare.
 
 Projektet visar hur en enkel spelmiljö kan användas för att experimentera med
@@ -26,19 +26,19 @@ agentstrategier, statistik och realtidsvisualisering.
 
 ## Agenterna
 
-### Runner 🐦 — "Slumpts-spelaren"
+### Donald 🐻‍❄️ — "Slumpts-spelaren"
 Spelar totalt slumpmässigt. Oförutsägbar i teorin — men eftersom han inte
 anpassar sig kan hans mönster (t.ex. upprepade drag) utnyttjas.
 
-### Coyote 🐺 — "Mönsterläsaren"
+### Oscar 🐐 — "Mönsterläsaren"
 En enkel adaptiv strategi:
-1. Om motståndaren **upprepat samma drag två gånger i rad**, förutsäger Coyote
+1. Om motståndaren **upprepat samma drag två gånger i rad**, förutsäger Oscar
    nästa drag och spelar det som slår det förutsagda draget.
 2. Annars spelar han slumpmässigt.
 
-I en 100-omgångars match gav detta Coyote en liten men stabil övertag
-(eftersom Runners upprepade drag utnyttjas), samtidigt som Sax ofta blev det
-enskilda "bästa utfallet" — ett direkt resultat av Coyotes motdrag mot Runners Påse.
+I en 100-omgångars match gav detta Oscar en liten men stabil övertag
+(eftersom Donalds upprepade drag utnyttjas), samtidigt som Sax ofta blev det
+enskilda "bästa utfallet" — ett direkt resultat av Oscars motdrag mot Donalds Påse.
 
 ## Kom igång
 
