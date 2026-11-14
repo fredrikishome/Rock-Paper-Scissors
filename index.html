@@ -47,7 +47,9 @@
     backdrop-filter: blur(8px);
   }
   .panel.donald { border-color: rgba(255, 159, 67, 0.35); box-shadow: var(--glow-orange), inset 0 0 30px rgba(120, 60, 10, 0.15); }
-  .agent-avatar { width: 58px; height: 58px; object-fit: contain; vertical-align: middle; margin-right: 8px; filter: drop-shadow(0 0 10px rgba(77,216,255,.25)); }\n  .duel-avatar { width: 42px; height: 42px; object-fit: contain; vertical-align: middle; }\n  .panel-title { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase;
+  .agent-avatar { width: 58px; height: 58px; object-fit: contain; vertical-align: middle; margin-right: 8px; filter: drop-shadow(0 0 10px rgba(77,216,255,.25)); }
+  .duel-avatar { width: 42px; height: 42px; object-fit: contain; vertical-align: middle; }
+  .panel-title { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase;
     color: var(--grey); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
   .panel-title::before { content: ""; width: 8px; height: 8px; border-radius: 50%;
     background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
@@ -674,7 +676,10 @@ function drawBeam(now) {
   ctx.restore();
 }
 
-const donaldAvatar = new Image(); donaldAvatar.src = "assets/donald-polar-bear.svg";\nconst oscarAvatar = new Image(); oscarAvatar.src = "assets/oscar-goat.svg";\n\nfunction drawNode(x, y, avatar, color) {
+const donaldAvatar = new Image(); donaldAvatar.src = "assets/donald-polar-bear.svg";
+const oscarAvatar = new Image(); oscarAvatar.src = "assets/oscar-goat.svg";
+
+function drawNode(x, y, avatar, color) {
   ctx.save();
   ctx.shadowBlur = 20; ctx.shadowColor = color;
   ctx.fillStyle = "rgba(10,22,58,0.95)";
@@ -682,8 +687,7 @@ const donaldAvatar = new Image(); donaldAvatar.src = "assets/donald-polar-bear.s
   ctx.beginPath(); ctx.arc(x, y, 20, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
   ctx.restore();
   ctx.save();
-  ctx.font = "18px Segoe UI"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
-  ctx.fillText(emoji, x, y + 1);
+  if (avatar.complete && avatar.naturalWidth) ctx.drawImage(avatar, x - 17, y - 17, 34, 34);
   ctx.restore();
 }
 
