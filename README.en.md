@@ -1,6 +1,6 @@
 # ✊ ✌️ ✋ Rock, Paper, Scissors — Agent + Agent (English)
 
-Two autonomous agents — **Donald 🧨** and **Oskar 🌊** — play rock, paper,
+Two autonomous agents — **Runner 🐦** and **Coyote 🐺** — play rock, paper,
 scissors against each other, with live visualization in both the terminal
 (CLI) and the browser. Swedish is the primary language; this document is the
 English overview.
@@ -19,18 +19,18 @@ English overview.
 
 ## The agents
 
-### Donald 🧨 — "The random player"
+### Runner 🐦 — "The random player"
 Plays uniformly at random. Unpredictable in theory — but since he never adapts,
 his habits (e.g. repeated moves) can be exploited.
 
-### Oskar 🌊 — "The pattern reader"
+### Coyote 🐺 — "The pattern reader"
 A simple adaptive strategy:
-1. If the opponent has **played the same move twice in a row**, Oskar predicts
+1. If the opponent has **played the same move twice in a row**, Coyote predicts
    the next move and plays whatever beats it.
 2. Otherwise he plays at random.
 
-In a 100-round match this gives Oskar a small but steady edge, and it skews
-the "best move" statistics toward whatever counters Donald's favourite move.
+In a 100-round match this gives Coyote a small but steady edge, and it skews
+the "best move" statistics toward whatever counters Runner's favourite move.
 
 ## Getting started
 
