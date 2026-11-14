@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Sten, Sax, Påse — Donald vs Oskar
+Sten, Sax, Påse — Runner vs Coyote
 Dashboard-stilad CLI: två agenter som spelar medan du tittar på live.
 
 Användning:
@@ -39,8 +39,8 @@ GREY = "\033[38;5;245m"
 GOLD = "\033[33m"
 GREEN = "\033[92m"
 RED = "\033[91m"
-BORDER_D = "\033[38;5;130m"   # varm orange-brun ram för Donald
-BORDER_O = "\033[38;5;39m"    # cyan-blå ram för Oskar
+BORDER_D = "\033[38;5;130m"   # varm orange-brun ram för Runner
+BORDER_O = "\033[38;5;39m"    # cyan-blå ram för Coyote
 BORDER_C = "\033[38;5;68m"    # stålblå ram för mitten
 ANSI_RE = re.compile(r"\x1b\[[0-9;]*m")
 
@@ -107,15 +107,15 @@ class Agent:
             self.score += 1
 
 
-class Donald(Agent):
-    """Donald: spelar totalt slumpt — oförutsägbar men utan plan."""
+class Runner(Agent):
+    """Runner: spelar totalt slumpt — oförutsägbar men utan plan."""
 
     def choose_move(self) -> str:
         return self.rng.choice(MOVES)
 
 
-class Oskar(Agent):
-    """Oskar: lär av mönstret. Upprepar motståndaren ett drag två gånger i rad
+class Coyote(Agent):
+    """Coyote: lär av mönstret. Upprepar motståndaren ett drag två gånger i rad
     spår han nästa drag och spelar det som slår det — annars slumpt."""
 
     def __init__(self, name: str, opponent: Agent, seed: int | None = None):
@@ -193,12 +193,12 @@ def merge_rows(a: list[str], b: list[str], c: list[str]) -> list[str]:
     return [x + "  " + y + "  " + z for x, y, z in zip(a, b, c)]
 
 
-def donald_panel(d: Agent, last_round: int) -> list[str]:
+def runner_panel(d: Agent, last_round: int) -> list[str]:
     lines = [
         GREY + ITAL + "Strategi: ren slumpt" + RESET,
         "",
         BLUE + "import random" + RESET,
-        BLUE + "def donald(n):" + RESET,
+        BLUE + "def runner(n):" + RESET,
         BLUE + '  return random' + RESET,
         BLUE + '    .choice(MOVES)' + RESET,
         "",
@@ -216,7 +216,7 @@ def donald_panel(d: Agent, last_round: int) -> list[str]:
     return lines
 
 
-def oskar_panel(o: Oskar, last_round: int) -> list[str]:
+def coyote_panel(o: Coyote, last_round: int) -> list[str]:
     predicted = o.detect_repeat()
     counter = None
     if predicted:
@@ -266,10 +266,10 @@ def center_panel(n: int, total: int, d: Agent, o: Agent, last: tuple | None,
         lines.append(f"{GREY}   mot{RESET}")
         lines.append(f"{CYAN}{BOLD}{EMOJI[om]} {om:<6}{RESET}")
         lines.append("")
-        if winner == "Donald":
-            lines.append(f"{ORANGE}{BOLD}▸ DONALD +1{RESET}")
-        elif winner == "Oskar":
-            lines.append(f"{CYAN}{BOLD}▸ OSKAR +1{RESET}")
+        if winner == "Runner":
+            lines.append(f"{ORANGE}{BOLD}▸ RUNNER +1{RESET}")
+        elif winner == "Coyote":
+            lines.append(f"{CYAN}{BOLD}▸ COYOTE +1{RESET}")
         else:
             lines.append(GREY + "▸ LIKA — ingen poäng" + RESET)
     else:
@@ -292,8 +292,8 @@ def center_panel(n: int, total: int, d: Agent, o: Agent, last: tuple | None,
 def header(total: int) -> list[str]:
     t1 = "Sten + Sax + Påse.  Agent + Agent."
     t2 = f"SPELAR TILLSAMMANS · {total} OMGÅNGAR"
-    left = BOLD + "🧠 DONALD-GRÄNSSNITT +" + RESET
-    right = BOLD + "🤖 OSKAR-AI-GRÄNSSNITT +" + RESET
+    left = BOLD + "🧠 RUNNER-GRÄNSSNITT +" + RESET
+    right = BOLD + "🤖 COYOTE-AI-GRÄNSSNITT +" + RESET
     mid = WIDTH - vwidth(left) - vwidth(right) - 4
     return [
         BLUE + "═" * WIDTH + RESET,
@@ -307,8 +307,8 @@ def header(total: int) -> list[str]:
 def stat_boxes(n: int, d: Agent, o: Agent, draws: int, results: list[str]) -> list[str]:
     specs = [
         ("TOTALT", str(n), GOLD),
-        ("DONALD", str(d.score), ORANGE),
-        ("OSKAR", str(o.score), CYAN),
+        ("RUNNER", str(d.score), ORANGE),
+        ("COYOTE", str(o.score), CYAN),
         ("OAVGJORT", str(draws), GREY),
     ]
     bw = (WIDTH - 3 * 2) // 4
@@ -337,11 +337,11 @@ def render_frame(n, total, d, o, last, move_wins, draws, results) -> str:
     rows = []
     rows += header(total)
     rows.append("")
-    left = panel("DONALD · KOD", donald_panel(d, n), PANEL_W, PANEL_H, BORDER_D)
+    left = panel("RUNNER · KOD", runner_panel(d, n), PANEL_W, PANEL_H, BORDER_D)
     center = panel("MATCHFLÖDE",
                    center_panel(n, total, d, o, last, move_wins, draws),
                    CENTER_W, PANEL_H, BORDER_C)
-    right = panel("OSKAR · AI", oskar_panel(o, n), PANEL_W, PANEL_H, BORDER_O)
+    right = panel("COYOTE · AI", coyote_panel(o, n), PANEL_W, PANEL_H, BORDER_O)
     rows += merge_rows(left, center, right)
     rows.append("")
     rows.append(trend_line(results))
@@ -377,24 +377,24 @@ def final_summary(ref: MatchReferee, rounds_played: int) -> str:
 # Huvudloop
 # --------------------------------------------------------------------------
 def main():
-    ap = argparse.ArgumentParser(description="Sten, Sax, Påse: Donald vs Oskar (dashboard)")
+    ap = argparse.ArgumentParser(description="Sten, Sax, Påse: Runner vs Coyote (dashboard)")
     ap.add_argument("--rounds", type=int, default=100)
     ap.add_argument("--delay", type=float, default=0.05)
     ap.add_argument("--seed", type=int, default=None)
     ap.add_argument("--final-only", action="store_true", help="rita bara slutdashboarden")
     args = ap.parse_args()
 
-    donald = Donald("Donald", seed=args.seed)
-    oskar = Oskar("Oskar", opponent=donald, seed=None if args.seed is None else args.seed + 1)
-    ref = MatchReferee(donald, oskar)
+    runner = Runner("Runner", seed=args.seed)
+    coyote = Coyote("Coyote", opponent=runner, seed=None if args.seed is None else args.seed + 1)
+    ref = MatchReferee(runner, coyote)
 
     last = None
     if args.final_only:
         for n in range(1, args.rounds + 1):
             last = ref.play_round()
         print("\033[?1049h\033[H\033[J\033[?25l", end="")
-        print(render_frame(args.rounds, args.rounds, donald, oskar, last,
-                           ref.move_wins, ref.draws, donald.results))
+        print(render_frame(args.rounds, args.rounds, runner, coyote, last,
+                           ref.move_wins, ref.draws, runner.results))
         print("\033[?25h", end="")
         try:
             input(f"\n{GREY}Tryck Enter för att avsluta ...{RESET}")
@@ -408,8 +408,8 @@ def main():
     try:
         for n in range(1, args.rounds + 1):
             last = ref.play_round()
-            frame = render_frame(n, args.rounds, donald, oskar, last,
-                                 ref.move_wins, ref.draws, donald.results)
+            frame = render_frame(n, args.rounds, runner, coyote, last,
+                                 ref.move_wins, ref.draws, runner.results)
             sys.stdout.write("\033[H" + frame + "\n")
             sys.stdout.flush()
             if args.delay > 0:
@@ -420,7 +420,7 @@ def main():
     finally:
         sys.stdout.write("\033[?25h\033[?1049l")  # återställ terminalen
         sys.stdout.flush()
-    print(final_summary(ref, min(len(donald.history), args.rounds)))
+    print(final_summary(ref, min(len(runner.history), args.rounds)))
 
 
 if __name__ == "__main__":
