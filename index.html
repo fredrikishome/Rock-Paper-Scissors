@@ -233,14 +233,14 @@
     </div>
     <div class="duelcanvasbox"><canvas id="duelCanvas"></canvas></div>
     <div class="duelcaption">
-      <span class="dl">🐦 Donald</span>
+      <span class="dl">🐻‍❄️ Donald</span>
       <span class="dc" id="lineInfo">Linjen flyter mot den agent som vann senaste omgången</span>
-      <span class="dr">Oscar 🐺</span>
+      <span class="dr">Oscar 🐐</span>
     </div>
   </section>
 
   <div class="grid">
-    <!-- RUNNER -->
+    <!-- DONALD -->
     <section class="panel donald">
       <div class="panel-title"><img class="agent-avatar" src="assets/donald-polar-bear.svg" alt="Donald, isbjörn">Donald · Kod</div>
       <div class="code">
@@ -282,7 +282,7 @@
       </div>
     </section>
 
-    <!-- COYOTE -->
+    <!-- OSCAR -->
     <section class="panel">
       <div class="panel-title"><img class="agent-avatar" src="assets/oscar-goat.svg" alt="Oscar, get">Oscar · AI</div>
       <div class="ai-msg">Jag analyserar dina senaste drag och hittar mönster:</div>
@@ -334,7 +334,7 @@
     </div>
   </details>
 
-  <footer>Simulerad match · 100 omgångar · Donald 🐦 vs Oscar 🐺 · Agent + Agent</footer>
+  <footer>Simulerad match · 100 omgångar · Donald 🐻‍❄️ vs Oscar 🐐 · Agent + Agent</footer>
 </div>
 
 <script>
@@ -424,8 +424,8 @@ function resolveRound(i) {
   els.dMove.textContent = r.donald;
   els.oMove.textContent = r.oscar;
   const v = els.verdict;
-  if (r.winner === "Donald") { v.textContent = "▸ RUNNER +1 — linjen drar åt vänster"; v.className = "verdict d"; }
-  else if (r.winner === "Oscar") { v.textContent = "▸ COYOTE +1 — linjen drar åt höger"; v.className = "verdict o"; }
+  if (r.winner === "Donald") { v.textContent = "▸ DONALD +1 — linjen drar åt vänster"; v.className = "verdict d"; }
+  else if (r.winner === "Oscar") { v.textContent = "▸ OSCAR +1 — linjen drar åt höger"; v.className = "verdict o"; }
   else { v.textContent = "▸ LIKA — linjen är neutral"; v.className = "verdict dr"; }
 
   els.dScore.textContent = dScore;
@@ -488,7 +488,7 @@ function onFinish() {
     `<strong>${moveWins[best]}</strong> av ${dScore + oScore} vunna matcher ` +
     `(${Math.round(moveWins[best] / (dScore + oScore) * 100)} %). ` +
     `Slutställning: Donald ${dScore} – Oscar ${oScore} (${draws} oavgjorda).` +
-    (oScore > dScore ? " 🐺 Oscar vann matchen!" : dScore > oScore ? " 🐦 Donald vann matchen!" : " 🤝 Helt oavgjort!");
+    (oScore > dScore ? " 🐐 Oscar vann matchen!" : dScore > oScore ? " 🐻‍❄️ Donald vann matchen!" : " 🤝 Helt oavgjort!");
   els.btnPlay.textContent = "⟲ Kör igen";
   playing = false;
   phase = "done";
