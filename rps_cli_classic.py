@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Sten, Sax, Påse — Donald vs Oskar (KLASSISKT gränssnitt)
+Sten, Sax, Påse — Runner vs Coyote (KLASSISKT gränssnitt)
 Enkel liststil: en rad per omgång, därefter slutstatistik.
 För dashboard-version, se rps_cli.py.
 
@@ -56,15 +56,15 @@ class Agent:
             self.score += 1
 
 
-class Donald(Agent):
-    """Donald: spelar totalt slumpt — oförutsägbar men utan plan."""
+class Runner(Agent):
+    """Runner: spelar totalt slumpt — oförutsägbar men utan plan."""
 
     def choose_move(self) -> str:
         return self.rng.choice(MOVES)
 
 
-class Oskar(Agent):
-    """Oskar: lär av mönstret. Om motståndaren upprepar ett drag två gånger
+class Coyote(Agent):
+    """Coyote: lär av mönstret. Om motståndaren upprepar ett drag två gånger
     i rad spår han nästa drag och spelar det som slår det — annars slumpt."""
 
     def __init__(self, name: str, opponent: Agent, seed: int | None = None):
@@ -123,10 +123,10 @@ def line(char="─", width=64):
 
 def print_round(n, total, d_move, o_move, winner, d_score, o_score, draws):
     d_col, o_col = ORANGE, CYAN
-    if winner == "Donald":
-        verdict = f"{ORANGE}{BOLD}🏆 Donald vinner{RESET}"
-    elif winner == "Oskar":
-        verdict = f"{CYAN}{BOLD}🏆 Oskar vinner{RESET}"
+    if winner == "Runner":
+        verdict = f"{ORANGE}{BOLD}🏆 Runner vinner{RESET}"
+    elif winner == "Coyote":
+        verdict = f"{CYAN}{BOLD}🏆 Coyote vinner{RESET}"
     else:
         verdict = f"{GREY}🤝 Oavgjort{RESET}"
     print(
@@ -168,25 +168,25 @@ def print_stats(ref, rounds_played):
 
 
 def main():
-    ap = argparse.ArgumentParser(description="Sten, Sax, Påse: Donald vs Oskar (klassisk stil)")
+    ap = argparse.ArgumentParser(description="Sten, Sax, Påse: Runner vs Coyote (klassisk stil)")
     ap.add_argument("--rounds", type=int, default=100)
     ap.add_argument("--delay", type=float, default=0.03, help="paus i sekunder mellan omgångar")
     ap.add_argument("--seed", type=int, default=None)
     args = ap.parse_args()
 
-    donald = Donald("Donald", seed=args.seed)
-    oskar = Oskar("Oskar", opponent=donald, seed=None if args.seed is None else args.seed + 1)
-    ref = MatchReferee(donald, oskar)
+    runner = Runner("Runner", seed=args.seed)
+    coyote = Coyote("Coyote", opponent=runner, seed=None if args.seed is None else args.seed + 1)
+    ref = MatchReferee(runner, coyote)
 
     line("═")
-    print(f"{BOLD}  ✊ ✌️ ✋  STEN, SAX, PÅSE — Donald 🧨 vs Oskar 🌊{RESET}")
+    print(f"{BOLD}  ✊ ✌️ ✋  STEN, SAX, PÅSE — Runner 🐦 vs Coyote 🐺{RESET}")
     print(f"{DIM}  {args.rounds} omgångar · klassiskt gränssnitt{RESET}")
     line("═")
 
     for n in range(1, args.rounds + 1):
         d_move, o_move, winner = ref.play_round()
         print_round(n, args.rounds, d_move, o_move, winner,
-                    donald.score, oskar.score, ref.draws)
+                    runner.score, coyote.score, ref.draws)
         if args.delay > 0:
             time.sleep(args.delay)
 
