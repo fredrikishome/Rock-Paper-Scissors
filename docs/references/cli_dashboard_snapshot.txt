@@ -1,17 +1,17 @@
 ══════════════════════════════════════════════════════════════════════════════
-🧠 DONALD-GRÄNSSNITT +                            🤖 OSKAR-AI-GRÄNSSNITT +
+🧠 RUNNER-GRÄNSSNITT +                            🤖 COYOTE-AI-GRÄNSSNITT +
 Sten + Sax + Påse.  Agent + Agent.                                            
 SPELAR TILLSAMMANS · 30 OMGÅNGAR                                              
 ══════════════════════════════════════════════════════════════════════════════
 
-╭─ DONALD · KOD ──────╮  ╭─ MATCHFLÖDE ──────────╮  ╭─ OSKAR · AI ────────╮
+╭─ RUNNER · KOD ──────╮  ╭─ MATCHFLÖDE ──────────╮  ╭─ COYOTE · AI ────────╮
 │ Strategi: ren slumpt │  │ OMGÅNG 30/30           │  │ AI-läge: analyserar  │
 │                      │  │                        │  │                      │
 │ import random        │  │ ✊ Sten                │  │ Jag analyserar       │
-│ def donald(n):       │  │    mot                 │  │ dina senaste drag    │
+│ def runner(n):       │  │    mot                 │  │ dina senaste drag    │
 │   return random      │  │ ✌ Sax                 │  │ och hittar mönster:  │
 │     .choice(MOVES)   │  │                        │  │                      │
-│                      │  │ ▸ DONALD +1            │  │ Inget stabilt mönste │
+│                      │  │ ▸ RUNNER +1            │  │ Inget stabilt mönste │
 │ SENASTE DRAG:        │  │                        │  │ detekterat just nu.  │
 │ r049 ✊ Sten   VINST │  │ ── STÄLLNING ──        │  │ Slumpt-läge aktivt.  │
 │ r050 ✊ Sten   VINST │  │  10 · 7                │  │                      │
@@ -26,14 +26,14 @@ SPELAR TILLSAMMANS · 30 OMGÅNGAR
 
 TREND (senaste 20):  ▂▂▂▄▄▄▄▂▂▄▂▂▄▄▄▄▂▂▄▄
 ┌────────────────┐  ┌────────────────┐  ┌────────────────┐  ┌────────────────┐
-│TOTALT          │  │DONALD          │  │OSKAR           │  │OAVGJORT        │
+│TOTALT          │  │RUNNER          │  │COYOTE           │  │OAVGJORT        │
 │30              │  │10              │  │7               │  │13              │
 └────────────────┘  └────────────────┘  └────────────────┘  └────────────────┘
 
 Tryck Enter för att avsluta ...══════════════════════════════════════════════════════════════════════════════
   📊 SLUTSTATISTIK — 30 omgångar
 ──────────────────────────────────────────────────────────────────────────────
-  🏆 Vinnare: Donald (10–7)
+  🏆 Vinnare: Runner (10–7)
   Oavgjorda omgångar: 13  (17 avgörande)
 ──────────────────────────────────────────────────────────────────────────────
     ✊ Sten     8 st (47.1 %)  ← BÄSTA UTFALLET
