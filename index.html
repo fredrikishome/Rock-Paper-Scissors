@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sten + Sax + Påse. Agent + Agent. — Runner vs Coyote</title>
+<title>Sten + Sax + Påse. Agent + Agent. — Donald vs Oscar</title>
 <style>
   :root {
     --bg1: #050b1f; --bg2: #0a1440; --bg3: #071030;
@@ -46,12 +46,12 @@
     box-shadow: var(--glow-cyan), inset 0 0 30px rgba(20, 60, 140, 0.25);
     backdrop-filter: blur(8px);
   }
-  .panel.runner { border-color: rgba(255, 159, 67, 0.35); box-shadow: var(--glow-orange), inset 0 0 30px rgba(120, 60, 10, 0.15); }
-  .panel-title { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase;
+  .panel.donald { border-color: rgba(255, 159, 67, 0.35); box-shadow: var(--glow-orange), inset 0 0 30px rgba(120, 60, 10, 0.15); }
+  .agent-avatar { width: 58px; height: 58px; object-fit: contain; vertical-align: middle; margin-right: 8px; filter: drop-shadow(0 0 10px rgba(77,216,255,.25)); }\n  .duel-avatar { width: 42px; height: 42px; object-fit: contain; vertical-align: middle; }\n  .panel-title { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase;
     color: var(--grey); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
   .panel-title::before { content: ""; width: 8px; height: 8px; border-radius: 50%;
     background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
-  .panel.runner .panel-title::before { background: var(--orange); box-shadow: 0 0 8px var(--orange); }
+  .panel.donald .panel-title::before { background: var(--orange); box-shadow: 0 0 8px var(--orange); }
 
   .code {
     font-family: Consolas, 'Cascadia Code', monospace; font-size: 0.8rem;
@@ -208,9 +208,9 @@
 <body>
 <div class="wrap">
   <div class="topline">
-    <span>🧠 Runner-gränssnitt <span class="dot">+</span></span>
+    <span>🧠 Donald-gränssnitt <span class="dot">+</span></span>
     <span>Sten, Sax, Påse <span class="dot">●</span></span>
-    <span>Coyote-AI-gränssnitt <span class="dot">+</span></span>
+    <span>Oscar-AI-gränssnitt <span class="dot">+</span></span>
   </div>
   <h1>Sten + Sax + Påse.&nbsp; Agent + Agent.</h1>
   <div class="subtitle">Spelar tillsammans · 100 omgångar</div>
@@ -231,24 +231,24 @@
     </div>
     <div class="duelcanvasbox"><canvas id="duelCanvas"></canvas></div>
     <div class="duelcaption">
-      <span class="dl">🐦 Runner</span>
+      <span class="dl">🐦 Donald</span>
       <span class="dc" id="lineInfo">Linjen flyter mot den agent som vann senaste omgången</span>
-      <span class="dr">Coyote 🐺</span>
+      <span class="dr">Oscar 🐺</span>
     </div>
   </section>
 
   <div class="grid">
     <!-- RUNNER -->
-    <section class="panel runner">
-      <div class="panel-title">Runner · Kod</div>
+    <section class="panel donald">
+      <div class="panel-title"><img class="agent-avatar" src="assets/donald-polar-bear.svg" alt="Donald, isbjörn">Donald · Kod</div>
       <div class="code">
         <span class="kw">import</span> random<br>
-        <span class="kw">def</span> <span class="fn">runner</span>(n):<br>
+        <span class="kw">def</span> <span class="fn">donald</span>(n):<br>
         &nbsp;&nbsp;<span class="kw">return</span> random<br>
         &nbsp;&nbsp;&nbsp;&nbsp;.choice(MOVES)
       </div>
       <div class="panel-title">Senaste drag</div>
-      <div class="log" id="runnerLog"></div>
+      <div class="log" id="donaldLog"></div>
     </section>
 
     <!-- MATCHFLÖDE -->
@@ -282,7 +282,7 @@
 
     <!-- COYOTE -->
     <section class="panel">
-      <div class="panel-title">Coyote · AI</div>
+      <div class="panel-title"><img class="agent-avatar" src="assets/oscar-goat.svg" alt="Oscar, get">Oscar · AI</div>
       <div class="ai-msg">Jag analyserar dina senaste drag och hittar mönster:</div>
       <div class="ai-box">
         <span class="lbl">Mönsterdetektering</span>
@@ -291,7 +291,7 @@
       <div class="ai-box">
         <span class="lbl">Förtroende för prediktion</span>
         <div class="conf-track"><div class="conf-fill" id="confFill"></div></div>
-        <div style="margin-top:6px" id="confPct">Vinstprocent Coyote: 0 %</div>
+        <div style="margin-top:6px" id="confPct">Vinstprocent Oscar: 0 %</div>
       </div>
       <div class="ai-box">
         <span class="lbl">Analys · sista beslut</span>
@@ -306,8 +306,8 @@
     <div class="trendline">
       <div class="trend" id="trend"></div>
       <div class="trend-legend">
-        <span><i class="lg-w"></i>Runner-vinst</span>
-        <span><i class="lg-l"></i>Coyote-vinst</span>
+        <span><i class="lg-w"></i>Donald-vinst</span>
+        <span><i class="lg-l"></i>Oscar-vinst</span>
         <span><i class="lg-d"></i>Oavgjort</span>
       </div>
     </div>
@@ -315,8 +315,8 @@
 
   <div class="statgrid">
     <div class="stat"><div class="lbl">Totalt</div><div class="num gold" id="statTotal">0</div></div>
-    <div class="stat"><div class="lbl">Runner</div><div class="num orange" id="statRunner">0</div></div>
-    <div class="stat"><div class="lbl">Coyote</div><div class="num cyan" id="statCoyote">0</div></div>
+    <div class="stat"><div class="lbl">Donald</div><div class="num orange" id="statDonald">0</div></div>
+    <div class="stat"><div class="lbl">Oscar</div><div class="num cyan" id="statOscar">0</div></div>
     <div class="stat"><div class="lbl">Oavgjort</div><div class="num grey" id="statDraw">0</div></div>
   </div>
 
@@ -326,39 +326,39 @@
     <summary>Alla 100 omgångar</summary>
     <div class="tablewrap">
       <table>
-        <thead><tr><th>#</th><th>Runner</th><th>Coyote</th><th>Vinnare</th></tr></thead>
+        <thead><tr><th>#</th><th>Donald</th><th>Oscar</th><th>Vinnare</th></tr></thead>
         <tbody id="roundsBody"></tbody>
       </table>
     </div>
   </details>
 
-  <footer>Simulerad match · 100 omgångar · Runner 🐦 vs Coyote 🐺 · Agent + Agent</footer>
+  <footer>Simulerad match · 100 omgångar · Donald 🐦 vs Oscar 🐺 · Agent + Agent</footer>
 </div>
 
 <script>
 const EMOJI = { "Sten": "✊", "Sax": "✌️", "Påse": "✋" };
 const BEATS = { "Sten": "Sax", "Sax": "Påse", "Påse": "Sten" };
-const COLOR = { "Runner": "#ff9f43", "Coyote": "#4dd8ff", "Oavgjort": "#8fa3c8" };
+const COLOR = { "Donald": "#ff9f43", "Oscar": "#4dd8ff", "Oavgjort": "#8fa3c8" };
 const MOVECOLOR = { "Sten": "#ffd32a", "Sax": "#4dd8ff", "Påse": "#ff9f43" };
-const rounds = [{"round": 1, "runner": "Påse", "coyote": "Sten", "winner": "Runner"}, {"round": 2, "runner": "Sten", "coyote": "Påse", "winner": "Coyote"}, {"round": 3, "runner": "Sax", "coyote": "Sten", "winner": "Coyote"}, {"round": 4, "runner": "Sten", "coyote": "Sten", "winner": "Oavgjort"}, {"round": 5, "runner": "Påse", "coyote": "Sten", "winner": "Runner"}, {"round": 6, "runner": "Påse", "coyote": "Påse", "winner": "Oavgjort"}, {"round": 7, "runner": "Påse", "coyote": "Sten", "winner": "Runner"}, {"round": 8, "runner": "Påse", "coyote": "Sax", "winner": "Coyote"}, {"round": 9, "runner": "Sten", "coyote": "Sten", "winner": "Oavgjort"}, {"round": 10, "runner": "Sten", "coyote": "Sten", "winner": "Oavgjort"}, {"round": 11, "runner": "Sten", "coyote": "Påse", "winner": "Coyote"}, {"round": 12, "runner": "Påse", "coyote": "Sten", "winner": "Runner"}, {"round": 13, "runner": "Påse", "coyote": "Sten", "winner": "Runner"}, {"round": 14, "runner": "Påse", "coyote": "Påse", "winner": "Oavgjort"}, {"round": 15, "runner": "Påse", "coyote": "Påse", "winner": "Oavgjort"}, {"round": 16, "runner": "Sax", "coyote": "Sten", "winner": "Coyote"}, {"round": 17, "runner": "Sax", "coyote": "Påse", "winner": "Runner"}, {"round": 18, "runner": "Sax", "coyote": "Sten", "winner": "Coyote"}, {"round": 19, "runner": "Sten", "coyote": "Påse", "winner": "Coyote"}, {"round": 20, "runner": "Sax", "coyote": "Sax", "winner": "Oavgjort"}, {"round": 21, "runner": "Sax", "coyote": "Sten", "winner": "Coyote"}, {"round": 22, "runner": "Sten", "coyote": "Sax", "winner": "Runner"}, {"round": 23, "runner": "Sten", "coyote": "Sten", "winner": "Oavgjort"}, {"round": 24, "runner": "Sax", "coyote": "Sten", "winner": "Coyote"}, {"round": 25, "runner": "Sax", "coyote": "Sax", "winner": "Oavgjort"}, {"round": 26, "runner": "Påse", "coyote": "Sax", "winner": "Coyote"}, {"round": 27, "runner": "Sten", "coyote": "Påse", "winner": "Coyote"}, {"round": 28, "runner": "Sax", "coyote": "Påse", "winner": "Runner"}, {"round": 29, "runner": "Sten", "coyote": "Sax", "winner": "Runner"}, {"round": 30, "runner": "Sten", "coyote": "Påse", "winner": "Coyote"}, {"round": 31, "runner": "Sax", "coyote": "Påse", "winner": "Runner"}, {"round": 32, "runner": "Påse", "coyote": "Sax", "winner": "Coyote"}, {"round": 33, "runner": "Påse", "coyote": "Sten", "winner": "Runner"}, {"round": 34, "runner": "Påse", "coyote": "Sten", "winner": "Runner"}, {"round": 35, "runner": "Sten", "coyote": "Påse", "winner": "Coyote"}, {"round": 36, "runner": "Sten", "coyote": "Sax", "winner": "Runner"}, {"round": 37, "runner": "Sten", "coyote": "Sten", "winner": "Oavgjort"}, {"round": 38, "runner": "Sten", "coyote": "Sax", "winner": "Runner"}, {"round": 39, "runner": "Sax", "coyote": "Sax", "winner": "Oavgjort"}, {"round": 40, "runner": "Påse", "coyote": "Sax", "winner": "Coyote"}, {"round": 41, "runner": "Sten", "coyote": "Sax", "winner": "Runner"}, {"round": 42, "runner": "Sax", "coyote": "Sten", "winner": "Coyote"}, {"round": 43, "runner": "Påse", "coyote": "Sax", "winner": "Coyote"}, {"round": 44, "runner": "Påse", "coyote": "Påse", "winner": "Oavgjort"}, {"round": 45, "runner": "Påse", "coyote": "Sten", "winner": "Runner"}, {"round": 46, "runner": "Påse", "coyote": "Påse", "winner": "Oavgjort"}, {"round": 47, "runner": "Sten", "coyote": "Påse", "winner": "Coyote"}, {"round": 48, "runner": "Påse", "coyote": "Sten", "winner": "Runner"}, {"round": 49, "runner": "Sten", "coyote": "Sax", "winner": "Runner"}, {"round": 50, "runner": "Sax", "coyote": "Sax", "winner": "Oavgjort"}, {"round": 51, "runner": "Påse", "coyote": "Påse", "winner": "Oavgjort"}, {"round": 52, "runner": "Påse", "coyote": "Sten", "winner": "Runner"}, {"round": 53, "runner": "Påse", "coyote": "Sax", "winner": "Coyote"}, {"round": 54, "runner": "Sten", "coyote": "Sten", "winner": "Oavgjort"}, {"round": 55, "runner": "Sten", "coyote": "Sax", "winner": "Runner"}, {"round": 56, "runner": "Sax", "coyote": "Sax", "winner": "Oavgjort"}, {"round": 57, "runner": "Sten", "coyote": "Sten", "winner": "Oavgjort"}, {"round": 58, "runner": "Påse", "coyote": "Påse", "winner": "Oavgjort"}, {"round": 59, "runner": "Sax", "coyote": "Sten", "winner": "Coyote"}, {"round": 60, "runner": "Påse", "coyote": "Sax", "winner": "Coyote"}, {"round": 61, "runner": "Sax", "coyote": "Påse", "winner": "Runner"}, {"round": 62, "runner": "Sax", "coyote": "Sten", "winner": "Coyote"}, {"round": 63, "runner": "Sax", "coyote": "Sten", "winner": "Coyote"}, {"round": 64, "runner": "Sten", "coyote": "Påse", "winner": "Coyote"}, {"round": 65, "runner": "Påse", "coyote": "Påse", "winner": "Oavgjort"}, {"round": 66, "runner": "Sax", "coyote": "Påse", "winner": "Runner"}, {"round": 67, "runner": "Påse", "coyote": "Sax", "winner": "Coyote"}, {"round": 68, "runner": "Påse", "coyote": "Sax", "winner": "Coyote"}, {"round": 69, "runner": "Sax", "coyote": "Sten", "winner": "Coyote"}, {"round": 70, "runner": "Sten", "coyote": "Påse", "winner": "Coyote"}, {"round": 71, "runner": "Sax", "coyote": "Sten", "winner": "Coyote"}, {"round": 72, "runner": "Sten", "coyote": "Sten", "winner": "Oavgjort"}, {"round": 73, "runner": "Sten", "coyote": "Påse", "winner": "Coyote"}, {"round": 74, "runner": "Sten", "coyote": "Påse", "winner": "Coyote"}, {"round": 75, "runner": "Sax", "coyote": "Påse", "winner": "Runner"}, {"round": 76, "runner": "Sten", "coyote": "Sax", "winner": "Runner"}, {"round": 77, "runner": "Sax", "coyote": "Påse", "winner": "Runner"}, {"round": 78, "runner": "Sax", "coyote": "Påse", "winner": "Runner"}, {"round": 79, "runner": "Sax", "coyote": "Påse", "winner": "Runner"}, {"round": 80, "runner": "Sten", "coyote": "Påse", "winner": "Coyote"}, {"round": 81, "runner": "Påse", "coyote": "Sten", "winner": "Runner"}, {"round": 82, "runner": "Påse", "coyote": "Påse", "winner": "Oavgjort"}, {"round": 83, "runner": "Sax", "coyote": "Påse", "winner": "Runner"}, {"round": 84, "runner": "Sax", "coyote": "Sten", "winner": "Coyote"}, {"round": 85, "runner": "Sax", "coyote": "Sax", "winner": "Oavgjort"}, {"round": 86, "runner": "Sten", "coyote": "Sax", "winner": "Runner"}, {"round": 87, "runner": "Sten", "coyote": "Påse", "winner": "Coyote"}, {"round": 88, "runner": "Påse", "coyote": "Sax", "winner": "Coyote"}, {"round": 89, "runner": "Påse", "coyote": "Sten", "winner": "Runner"}, {"round": 90, "runner": "Påse", "coyote": "Sten", "winner": "Runner"}, {"round": 91, "runner": "Påse", "coyote": "Sax", "winner": "Coyote"}, {"round": 92, "runner": "Påse", "coyote": "Påse", "winner": "Oavgjort"}, {"round": 93, "runner": "Påse", "coyote": "Sten", "winner": "Runner"}, {"round": 94, "runner": "Sten", "coyote": "Sax", "winner": "Runner"}, {"round": 95, "runner": "Sten", "coyote": "Påse", "winner": "Coyote"}, {"round": 96, "runner": "Påse", "coyote": "Sten", "winner": "Runner"}, {"round": 97, "runner": "Påse", "coyote": "Sax", "winner": "Coyote"}, {"round": 98, "runner": "Sax", "coyote": "Sten", "winner": "Coyote"}, {"round": 99, "runner": "Sten", "coyote": "Sax", "winner": "Runner"}, {"round": 100, "runner": "Sax", "coyote": "Sten", "winner": "Coyote"}];
+const rounds = [{"round": 1, "donald": "Påse", "oscar": "Sten", "winner": "Donald"}, {"round": 2, "donald": "Sten", "oscar": "Påse", "winner": "Oscar"}, {"round": 3, "donald": "Sax", "oscar": "Sten", "winner": "Oscar"}, {"round": 4, "donald": "Sten", "oscar": "Sten", "winner": "Oavgjort"}, {"round": 5, "donald": "Påse", "oscar": "Sten", "winner": "Donald"}, {"round": 6, "donald": "Påse", "oscar": "Påse", "winner": "Oavgjort"}, {"round": 7, "donald": "Påse", "oscar": "Sten", "winner": "Donald"}, {"round": 8, "donald": "Påse", "oscar": "Sax", "winner": "Oscar"}, {"round": 9, "donald": "Sten", "oscar": "Sten", "winner": "Oavgjort"}, {"round": 10, "donald": "Sten", "oscar": "Sten", "winner": "Oavgjort"}, {"round": 11, "donald": "Sten", "oscar": "Påse", "winner": "Oscar"}, {"round": 12, "donald": "Påse", "oscar": "Sten", "winner": "Donald"}, {"round": 13, "donald": "Påse", "oscar": "Sten", "winner": "Donald"}, {"round": 14, "donald": "Påse", "oscar": "Påse", "winner": "Oavgjort"}, {"round": 15, "donald": "Påse", "oscar": "Påse", "winner": "Oavgjort"}, {"round": 16, "donald": "Sax", "oscar": "Sten", "winner": "Oscar"}, {"round": 17, "donald": "Sax", "oscar": "Påse", "winner": "Donald"}, {"round": 18, "donald": "Sax", "oscar": "Sten", "winner": "Oscar"}, {"round": 19, "donald": "Sten", "oscar": "Påse", "winner": "Oscar"}, {"round": 20, "donald": "Sax", "oscar": "Sax", "winner": "Oavgjort"}, {"round": 21, "donald": "Sax", "oscar": "Sten", "winner": "Oscar"}, {"round": 22, "donald": "Sten", "oscar": "Sax", "winner": "Donald"}, {"round": 23, "donald": "Sten", "oscar": "Sten", "winner": "Oavgjort"}, {"round": 24, "donald": "Sax", "oscar": "Sten", "winner": "Oscar"}, {"round": 25, "donald": "Sax", "oscar": "Sax", "winner": "Oavgjort"}, {"round": 26, "donald": "Påse", "oscar": "Sax", "winner": "Oscar"}, {"round": 27, "donald": "Sten", "oscar": "Påse", "winner": "Oscar"}, {"round": 28, "donald": "Sax", "oscar": "Påse", "winner": "Donald"}, {"round": 29, "donald": "Sten", "oscar": "Sax", "winner": "Donald"}, {"round": 30, "donald": "Sten", "oscar": "Påse", "winner": "Oscar"}, {"round": 31, "donald": "Sax", "oscar": "Påse", "winner": "Donald"}, {"round": 32, "donald": "Påse", "oscar": "Sax", "winner": "Oscar"}, {"round": 33, "donald": "Påse", "oscar": "Sten", "winner": "Donald"}, {"round": 34, "donald": "Påse", "oscar": "Sten", "winner": "Donald"}, {"round": 35, "donald": "Sten", "oscar": "Påse", "winner": "Oscar"}, {"round": 36, "donald": "Sten", "oscar": "Sax", "winner": "Donald"}, {"round": 37, "donald": "Sten", "oscar": "Sten", "winner": "Oavgjort"}, {"round": 38, "donald": "Sten", "oscar": "Sax", "winner": "Donald"}, {"round": 39, "donald": "Sax", "oscar": "Sax", "winner": "Oavgjort"}, {"round": 40, "donald": "Påse", "oscar": "Sax", "winner": "Oscar"}, {"round": 41, "donald": "Sten", "oscar": "Sax", "winner": "Donald"}, {"round": 42, "donald": "Sax", "oscar": "Sten", "winner": "Oscar"}, {"round": 43, "donald": "Påse", "oscar": "Sax", "winner": "Oscar"}, {"round": 44, "donald": "Påse", "oscar": "Påse", "winner": "Oavgjort"}, {"round": 45, "donald": "Påse", "oscar": "Sten", "winner": "Donald"}, {"round": 46, "donald": "Påse", "oscar": "Påse", "winner": "Oavgjort"}, {"round": 47, "donald": "Sten", "oscar": "Påse", "winner": "Oscar"}, {"round": 48, "donald": "Påse", "oscar": "Sten", "winner": "Donald"}, {"round": 49, "donald": "Sten", "oscar": "Sax", "winner": "Donald"}, {"round": 50, "donald": "Sax", "oscar": "Sax", "winner": "Oavgjort"}, {"round": 51, "donald": "Påse", "oscar": "Påse", "winner": "Oavgjort"}, {"round": 52, "donald": "Påse", "oscar": "Sten", "winner": "Donald"}, {"round": 53, "donald": "Påse", "oscar": "Sax", "winner": "Oscar"}, {"round": 54, "donald": "Sten", "oscar": "Sten", "winner": "Oavgjort"}, {"round": 55, "donald": "Sten", "oscar": "Sax", "winner": "Donald"}, {"round": 56, "donald": "Sax", "oscar": "Sax", "winner": "Oavgjort"}, {"round": 57, "donald": "Sten", "oscar": "Sten", "winner": "Oavgjort"}, {"round": 58, "donald": "Påse", "oscar": "Påse", "winner": "Oavgjort"}, {"round": 59, "donald": "Sax", "oscar": "Sten", "winner": "Oscar"}, {"round": 60, "donald": "Påse", "oscar": "Sax", "winner": "Oscar"}, {"round": 61, "donald": "Sax", "oscar": "Påse", "winner": "Donald"}, {"round": 62, "donald": "Sax", "oscar": "Sten", "winner": "Oscar"}, {"round": 63, "donald": "Sax", "oscar": "Sten", "winner": "Oscar"}, {"round": 64, "donald": "Sten", "oscar": "Påse", "winner": "Oscar"}, {"round": 65, "donald": "Påse", "oscar": "Påse", "winner": "Oavgjort"}, {"round": 66, "donald": "Sax", "oscar": "Påse", "winner": "Donald"}, {"round": 67, "donald": "Påse", "oscar": "Sax", "winner": "Oscar"}, {"round": 68, "donald": "Påse", "oscar": "Sax", "winner": "Oscar"}, {"round": 69, "donald": "Sax", "oscar": "Sten", "winner": "Oscar"}, {"round": 70, "donald": "Sten", "oscar": "Påse", "winner": "Oscar"}, {"round": 71, "donald": "Sax", "oscar": "Sten", "winner": "Oscar"}, {"round": 72, "donald": "Sten", "oscar": "Sten", "winner": "Oavgjort"}, {"round": 73, "donald": "Sten", "oscar": "Påse", "winner": "Oscar"}, {"round": 74, "donald": "Sten", "oscar": "Påse", "winner": "Oscar"}, {"round": 75, "donald": "Sax", "oscar": "Påse", "winner": "Donald"}, {"round": 76, "donald": "Sten", "oscar": "Sax", "winner": "Donald"}, {"round": 77, "donald": "Sax", "oscar": "Påse", "winner": "Donald"}, {"round": 78, "donald": "Sax", "oscar": "Påse", "winner": "Donald"}, {"round": 79, "donald": "Sax", "oscar": "Påse", "winner": "Donald"}, {"round": 80, "donald": "Sten", "oscar": "Påse", "winner": "Oscar"}, {"round": 81, "donald": "Påse", "oscar": "Sten", "winner": "Donald"}, {"round": 82, "donald": "Påse", "oscar": "Påse", "winner": "Oavgjort"}, {"round": 83, "donald": "Sax", "oscar": "Påse", "winner": "Donald"}, {"round": 84, "donald": "Sax", "oscar": "Sten", "winner": "Oscar"}, {"round": 85, "donald": "Sax", "oscar": "Sax", "winner": "Oavgjort"}, {"round": 86, "donald": "Sten", "oscar": "Sax", "winner": "Donald"}, {"round": 87, "donald": "Sten", "oscar": "Påse", "winner": "Oscar"}, {"round": 88, "donald": "Påse", "oscar": "Sax", "winner": "Oscar"}, {"round": 89, "donald": "Påse", "oscar": "Sten", "winner": "Donald"}, {"round": 90, "donald": "Påse", "oscar": "Sten", "winner": "Donald"}, {"round": 91, "donald": "Påse", "oscar": "Sax", "winner": "Oscar"}, {"round": 92, "donald": "Påse", "oscar": "Påse", "winner": "Oavgjort"}, {"round": 93, "donald": "Påse", "oscar": "Sten", "winner": "Donald"}, {"round": 94, "donald": "Sten", "oscar": "Sax", "winner": "Donald"}, {"round": 95, "donald": "Sten", "oscar": "Påse", "winner": "Oscar"}, {"round": 96, "donald": "Påse", "oscar": "Sten", "winner": "Donald"}, {"round": 97, "donald": "Påse", "oscar": "Sax", "winner": "Oscar"}, {"round": 98, "donald": "Sax", "oscar": "Sten", "winner": "Oscar"}, {"round": 99, "donald": "Sten", "oscar": "Sax", "winner": "Donald"}, {"round": 100, "donald": "Sax", "oscar": "Sten", "winner": "Oscar"}];
 
-// Coyotes AI-analyser (före varje omgång, baserat på Runners historik)
-const runnerHistAll = [];
+// Oscars AI-analyser (före varje omgång, baserat på Donalds historik)
+const donaldHistAll = [];
 const analysisAll = rounds.map(r => {
   let pattern = null, counter = null;
-  if (runnerHistAll.length >= 2 && runnerHistAll[runnerHistAll.length-1] === runnerHistAll[runnerHistAll.length-2]) {
-    pattern = runnerHistAll[runnerHistAll.length-1];
+  if (donaldHistAll.length >= 2 && donaldHistAll[donaldHistAll.length-1] === donaldHistAll[donaldHistAll.length-2]) {
+    pattern = donaldHistAll[donaldHistAll.length-1];
     counter = Object.keys(BEATS).find(m => BEATS[m] === pattern);
   }
-  runnerHistAll.push(r.runner);
-  return { pattern, counter, hit: counter === r.coyote };
+  donaldHistAll.push(r.donald);
+  return { pattern, counter, hit: counter === r.oscar };
 });
 
 // ---------- Tillstånd ----------
 let idx = 0;                    // nästa omgång att spela
 let dScore = 0, oScore = 0, draws = 0;
 const moveWins = { "Sten": 0, "Sax": 0, "Påse": 0 };
-const runnerHist = [];
+const donaldHist = [];
 let lastWinner = null;          // styr linjens riktning
 let playing = true;
 let phase = "flow";             // "flow" | "pause"
@@ -378,9 +378,9 @@ const els = {
   barSten: $("barSten"), barSax: $("barSax"), barPase: $("barPase"),
   metaSten: $("metaSten"), metaSax: $("metaSax"), metaPase: $("metaPase"),
   aiPattern: $("aiPattern"), confFill: $("confFill"), confPct: $("confPct"),
-  aiLog: $("aiLog"), dLog: $("runnerLog"), trend: $("trend"),
-  statTotal: $("statTotal"), statRunner: $("statRunner"),
-  statCoyote: $("statCoyote"), statDraw: $("statDraw"),
+  aiLog: $("aiLog"), dLog: $("donaldLog"), trend: $("trend"),
+  statTotal: $("statTotal"), statDonald: $("statDonald"),
+  statOscar: $("statOscar"), statDraw: $("statDraw"),
   bestHighlight: $("bestHighlight"), roundsBody: $("roundsBody"),
   progress: $("progress"), lineInfo: $("lineInfo"),
   btnPlay: $("btnPlay"), btnRestart: $("btnRestart"), speedSel: $("speedSel"),
@@ -391,15 +391,15 @@ const trendSpans = [];
 rounds.forEach(r => {
   const tr = document.createElement("tr");
   tr.className = "hiddenrow";
-  const cls = r.winner === "Runner" ? "wd" : r.winner === "Coyote" ? "wo" : "wdr";
+  const cls = r.winner === "Donald" ? "wd" : r.winner === "Oscar" ? "wo" : "wdr";
   tr.innerHTML = `<td>${r.round}</td>
-    <td>${EMOJI[r.runner]} ${r.runner}</td>
-    <td>${EMOJI[r.coyote]} ${r.coyote}</td>
+    <td>${EMOJI[r.donald]} ${r.donald}</td>
+    <td>${EMOJI[r.oscar]} ${r.oscar}</td>
     <td class="${cls}">${r.winner === "Oavgjort" ? "🤝" : "🏆 " + r.winner}</td>`;
   els.roundsBody.appendChild(tr);
   r._tr = tr;
   const s = document.createElement("span");
-  s.className = r.winner === "Runner" ? "tw" : r.winner === "Coyote" ? "tl" : "td";
+  s.className = r.winner === "Donald" ? "tw" : r.winner === "Oscar" ? "tl" : "td";
   els.trend.appendChild(s);
   trendSpans.push(s);
 });
@@ -408,22 +408,22 @@ rounds.forEach(r => {
 function resolveRound(i) {
   const r = rounds[i];
   const a = analysisAll[i];
-  runnerHist.push(r.runner);
+  donaldHist.push(r.donald);
 
-  if (r.winner === "Runner") { dScore++; moveWins[r.runner]++; }
-  else if (r.winner === "Coyote") { oScore++; moveWins[r.coyote]++; }
+  if (r.winner === "Donald") { dScore++; moveWins[r.donald]++; }
+  else if (r.winner === "Oscar") { oScore++; moveWins[r.oscar]++; }
   else draws++;
   lastWinner = r.winner;
   flashUntil = performance.now() + 380;
 
   els.roundNo.textContent = `OMGÅNG ${r.round}/100`;
-  els.dEmoji.textContent = EMOJI[r.runner];
-  els.oEmoji.textContent = EMOJI[r.coyote];
-  els.dMove.textContent = r.runner;
-  els.oMove.textContent = r.coyote;
+  els.dEmoji.textContent = EMOJI[r.donald];
+  els.oEmoji.textContent = EMOJI[r.oscar];
+  els.dMove.textContent = r.donald;
+  els.oMove.textContent = r.oscar;
   const v = els.verdict;
-  if (r.winner === "Runner") { v.textContent = "▸ RUNNER +1 — linjen drar åt vänster"; v.className = "verdict d"; }
-  else if (r.winner === "Coyote") { v.textContent = "▸ COYOTE +1 — linjen drar åt höger"; v.className = "verdict o"; }
+  if (r.winner === "Donald") { v.textContent = "▸ RUNNER +1 — linjen drar åt vänster"; v.className = "verdict d"; }
+  else if (r.winner === "Oscar") { v.textContent = "▸ COYOTE +1 — linjen drar åt höger"; v.className = "verdict o"; }
   else { v.textContent = "▸ LIKA — linjen är neutral"; v.className = "verdict dr"; }
 
   els.dScore.textContent = dScore;
@@ -438,7 +438,7 @@ function resolveRound(i) {
   setBar("barPase", "metaPase", "Påse");
 
   els.confFill.style.width = Math.round(oScore / total * 100) + "%";
-  els.confPct.textContent = `Vinstprocent Coyote: ${Math.round(oScore / total * 100)} %`;
+  els.confPct.textContent = `Vinstprocent Oscar: ${Math.round(oScore / total * 100)} %`;
 
   if (a.pattern) {
     els.aiPattern.innerHTML =
@@ -458,10 +458,10 @@ function resolveRound(i) {
 
   const row = document.createElement("div");
   row.className = "logrow";
-  const cls = r.winner === "Runner" ? "res-w" : r.winner === "Coyote" ? "res-l" : "res-d";
-  const res = r.winner === "Runner" ? "VINST" : r.winner === "Coyote" ? "FÖRLUST" : "LIKA";
+  const cls = r.winner === "Donald" ? "res-w" : r.winner === "Oscar" ? "res-l" : "res-d";
+  const res = r.winner === "Donald" ? "VINST" : r.winner === "Oscar" ? "FÖRLUST" : "LIKA";
   row.innerHTML = `<span class="rn">r${String(r.round).padStart(3,"0")}</span>
-    <span>${EMOJI[r.runner]} ${r.runner}</span><span class="${cls}">${res}</span>`;
+    <span>${EMOJI[r.donald]} ${r.donald}</span><span class="${cls}">${res}</span>`;
   els.dLog.appendChild(row);
   els.dLog.scrollTop = els.dLog.scrollHeight;
 
@@ -470,8 +470,8 @@ function resolveRound(i) {
   if (r._tr.scrollIntoView && els.roundsBody.closest("details").open === false) { /* tabellen är stängd, ingen scroll */ }
 
   els.statTotal.textContent = r.round;
-  els.statRunner.textContent = dScore;
-  els.statCoyote.textContent = oScore;
+  els.statDonald.textContent = dScore;
+  els.statOscar.textContent = oScore;
   els.statDraw.textContent = draws;
   els.progress.textContent = `Omgång ${r.round}/100`;
   els.lineInfo.textContent =
@@ -485,8 +485,8 @@ function onFinish() {
     `🏆 <strong>${EMOJI[best]} ${best}</strong> var det bästa utfallet — ` +
     `<strong>${moveWins[best]}</strong> av ${dScore + oScore} vunna matcher ` +
     `(${Math.round(moveWins[best] / (dScore + oScore) * 100)} %). ` +
-    `Slutställning: Runner ${dScore} – Coyote ${oScore} (${draws} oavgjorda).` +
-    (oScore > dScore ? " 🐺 Coyote vann matchen!" : dScore > oScore ? " 🐦 Runner vann matchen!" : " 🤝 Helt oavgjort!");
+    `Slutställning: Donald ${dScore} – Oscar ${oScore} (${draws} oavgjorda).` +
+    (oScore > dScore ? " 🐺 Oscar vann matchen!" : dScore > oScore ? " 🐦 Donald vann matchen!" : " 🤝 Helt oavgjort!");
   els.btnPlay.textContent = "⟲ Kör igen";
   playing = false;
   phase = "done";
@@ -495,7 +495,7 @@ function onFinish() {
 function restart() {
   idx = 0; dScore = oScore = draws = 0;
   for (const m of MOVES_KEYS()) moveWins[m] = 0;
-  runnerHist.length = 0; lastWinner = null;
+  donaldHist.length = 0; lastWinner = null;
   curIdx = -1; arrowT = 0;
   els.dLog.innerHTML = ""; els.aiLog.innerHTML = "";
   trendSpans.forEach(s => s.classList.remove("shown"));
@@ -601,8 +601,8 @@ function drawBeam(now) {
   // Händer: visa vad varje agent spelar i aktuell omgång
   if (curIdx >= 0 && curIdx < rounds.length) {
     const r = rounds[curIdx];
-    drawHand(x0, y - 34, r.runner, "#ff9f43");
-    drawHand(x1, y - 34, r.coyote, "#4dd8ff");
+    drawHand(x0, y - 34, r.donald, "#ff9f43");
+    drawHand(x1, y - 34, r.oscar, "#4dd8ff");
   }
 
   // EN pil per omgång: flyger från förloraren till vinnaren
@@ -610,9 +610,9 @@ function drawBeam(now) {
     const r = rounds[curIdx];
     const tEase = easeInOut(arrowT);
     const col = COLOR[r.winner];
-    if (r.winner === "Runner") {
+    if (r.winner === "Donald") {
       drawArrow(x1, y, x0, y, tEase, col, cx, cy);   // höger → vänster
-    } else if (r.winner === "Coyote") {
+    } else if (r.winner === "Oscar") {
       drawArrow(x0, y, x1, y, tEase, col, cx, cy);   // vänster → höger
     } else {
       drawArrow(x0, y, cx, y, tEase * 0.5, col, cx, cy);  // oavgjort: mot mitten
@@ -626,7 +626,7 @@ function drawBeam(now) {
     const diff = (dScore - oScore) / decisive;
     const p = 0.5 + diff * 0.38;
     const [mx, my] = qpoint(p, x0, y, cx, cy, x1, y);
-    const lead = dScore > oScore ? "Runner" : oScore > dScore ? "Coyote" : null;
+    const lead = dScore > oScore ? "Donald" : oScore > dScore ? "Oscar" : null;
     const mcol = lead ? COLOR[lead] : "rgba(143,163,200,0.9)";
     ctx.save();
     ctx.translate(mx, my); ctx.rotate(Math.PI / 4);
@@ -636,8 +636,8 @@ function drawBeam(now) {
   }
 
   // Noder: agent-avatars i ändarna
-  drawNode(x0, y, "🐦", "#ff9f43");
-  drawNode(x1, y, "🐺", "#4dd8ff");
+  drawNode(x0, y, donaldAvatar, "#ff9f43");
+  drawNode(x1, y, oscarAvatar, "#4dd8ff");
 
   // Mitten: puls vid avgörande
   if (flashing) {
@@ -663,7 +663,7 @@ function drawBeam(now) {
   if (badgeMode) {
     ctx.fillStyle = COLOR[lastWinner];
     ctx.font = "bold 11px Segoe UI";
-    ctx.fillText(lastWinner === "Runner" ? "D +1" : "O +1", W/2, y + 1);
+    ctx.fillText(lastWinner === "Donald" ? "D +1" : "O +1", W/2, y + 1);
   } else if (phase === "flow" && curIdx >= 0 && rounds[curIdx] && rounds[curIdx].winner === "Oavgjort") {
     ctx.fillStyle = "#8fa3c8"; ctx.font = "bold 12px Segoe UI";
     ctx.fillText("=", W/2, y + 1);
@@ -674,7 +674,7 @@ function drawBeam(now) {
   ctx.restore();
 }
 
-function drawNode(x, y, emoji, color) {
+const donaldAvatar = new Image(); donaldAvatar.src = "assets/donald-polar-bear.svg";\nconst oscarAvatar = new Image(); oscarAvatar.src = "assets/oscar-goat.svg";\n\nfunction drawNode(x, y, avatar, color) {
   ctx.save();
   ctx.shadowBlur = 20; ctx.shadowColor = color;
   ctx.fillStyle = "rgba(10,22,58,0.95)";
